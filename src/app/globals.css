@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Orenda Holdings
+   Restraint over decoration. Warm paper, deep navy, one metallic
+   accent used sparingly. Instrument Serif carries the voice.
+   ============================================================ */
+
+@theme {
+  /* Primary */
+  --color-navy: #050b5b;
+  --color-navy-deep: #04072f;
+  --color-navy-700: #101a78;
+  --color-navy-400: #5a63a8;
+
+  /* Single metallic accent */
+  --color-gold: #a8791f;
+  --color-gold-light: #cdaa5e;
+  --color-gold-soft: #e8d9b8;
+
+  /* Warm paper neutrals */
+  --color-ink: #1a1d2e;
+  --color-muted: #6b6f80;
+  --color-faint: #9a9caa;
+  --color-line: #ded8ca;
+  --color-line-soft: #ebe6da;
+  --color-ivory: #f7f4ed;
+  --color-ivory-deep: #f0ebe0;
+
+  /* Sub-brand accents, used only as small marks */
+  --color-v-advisors: #00aac6;
+  --color-v-capital: #7248f2;
+  --color-v-finserve: #265dfe;
+  --color-v-creative: #d4145a;
+  --color-v-digital: #df5123;
+  --color-v-realtors: #e39c1f;
+  --color-v-legal: #5b3fa8;
+  --color-v-star: #0f8a8f;
+
+  /* Type */
+  --font-display: var(--font-instrument), "Instrument Serif", Georgia, serif;
+  --font-sans: var(--font-jost), "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.72;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+    letter-spacing: -0.012em;
+    line-height: 1.06;
+    color: var(--color-navy);
+  }
+
+  h4, h5 {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--color-navy);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::selection { background: var(--color-navy); color: var(--color-ivory); }
+
+:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* ---------- micro label ---------- */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+/* ---------- hairline ---------- */
+.hair { height: 1px; background: var(--color-line); }
+
+/* ---------- motion, minimal ---------- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 1.1s cubic-bezier(.2,.8,.25,1) both; }
+.d1 { animation-delay: .12s; }
+.d2 { animation-delay: .24s; }
+.d3 { animation-delay: .36s; }
+.d4 { animation-delay: .5s; }
+.d5 { animation-delay: .64s; }
+
+@keyframes draw-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.draw { transform-origin: left; animation: draw-line 1.4s cubic-bezier(.2,.8,.25,1) both; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s cubic-bezier(.2,.8,.25,1), transform 1s cubic-bezier(.2,.8,.25,1);
+}
+.reveal.shown { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ---------- ambient mark ---------- */
+@keyframes orbit-turn {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.orbit-turn { animation: orbit-turn 240s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-turn { animation: none; }
 }

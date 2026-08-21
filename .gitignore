@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Client source material: brand book, ecosystem deck, scraped copy,
+# original logo assets. Proprietary, and not needed to build.
+/reference/
+
+# Local editor / OS
+.vscode/
+.idea/
