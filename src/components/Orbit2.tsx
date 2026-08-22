@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Starburst } from "@/components/Starburst";
 import { Action } from "@/components/ui";
-import { VERTICALS } from "@/data/verticals";
+import { VERTICALS, type Vertical } from "@/data/verticals";
 
 export function Orbit2() {
   const [active, setActive] = useState(0);
@@ -36,13 +36,13 @@ export function Orbit2() {
 
   return (
     <div ref={containerRef} className="relative h-[400vh]">
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-36 pb-10">
-        <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-28">
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-8 lg:pt-36 lg:pb-10">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-28">
           {/* diagram */}
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-8 sm:mb-0">
             <div
-              className="relative aspect-square w-[220px] sm:w-[420px] lg:w-[500px]"
-              style={{ ["--r" as string]: "clamp(100px, 34vw, 196px)" }}
+              className="relative aspect-square w-[180px] sm:w-[420px] lg:w-[500px]"
+              style={{ ["--r" as string]: "clamp(90px, 30vw, 196px)" }}
             >
               <span
                 aria-hidden
@@ -74,7 +74,7 @@ export function Orbit2() {
               </div>
 
               {/* satellites */}
-              {VERTICALS.map((item, i) => {
+              {VERTICALS.map((item: Vertical, i: number) => {
                 const angle = i * 45;
                 const on = i === active;
                 return (
@@ -104,7 +104,7 @@ export function Orbit2() {
 
           {/* reading pane */}
           <div>
-            <div className="flex items-center gap-5 my-8 sm:my-0">
+            <div className="flex items-center gap-5 mb-6 sm:my-0">
               <span className="label font-bold tabular-nums" style={{ color: v.accent }}>
                 {String(active + 1).padStart(2, "0")} / 08
               </span>
@@ -119,15 +119,15 @@ export function Orbit2() {
               </div>
             </div>
 
-            <div className="grid mt-8">
-              {VERTICALS.map((item, i) => {
+            <div className="grid mt-4 sm:mt-8">
+              {VERTICALS.map((item: Vertical, i: number) => {
                 const on = i === active;
                 return (
                   <div 
                     key={item.slug} 
                     className={`col-start-1 row-start-1 transition-opacity duration-700 ${on ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
                   >
-                    <h3 className="text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[3.5rem]">
+                    <h3 className="text-[1.8rem] sm:text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[3.5rem]">
                       {item.name}
                     </h3>
                     <p className="mt-4 max-w-lg text-[0.95rem] font-light leading-relaxed text-muted lg:mt-5">

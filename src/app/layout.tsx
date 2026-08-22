@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Jost, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
+import { Jost, Instrument_Serif, IBM_Plex_Mono, Manrope } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
@@ -28,6 +28,11 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400"],
   display: "swap",
 });
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://orendagroup.in"),
@@ -43,9 +48,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${instrument.variable} ${jost.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${instrument.variable} ${jost.variable} ${plexMono.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col font-sans" style={{ backgroundColor: '#ffffff', color: '#0a1a2f', fontFamily: 'var(--font-manrope), sans-serif' }}>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -3,23 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Starburst } from "./Starburst";
+import { Starburst } from "@/components/Starburst";
 
 const NAV = [
-  { label: "The Group", href: "/group" },
-  { label: "For Investors", href: "/investors" },
-  { label: "For Founders", href: "/founders" },
-  { label: "About", href: "/about" },
-  { label: "Our Investments", href: "/investments" },
-  { label: "Media", href: "/media" },
-  { label: "Contact", href: "/contact" },
+  { label: "The Group", href: "#" },
+  { label: "For Investors", href: "#" },
+  { label: "For Founders", href: "#" },
+  { label: "About", href: "#" },
+  { label: "Our Investments", href: "#" },
+  { label: "Media", href: "#" },
+  { label: "Contact", href: "#" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const home = pathname === "/";
+  const home = pathname === "/Home-2" || pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -38,25 +38,20 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
-        scrolled ? "bg-ivory/90 backdrop-blur-xl" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 flex flex-col ${
+        scrolled ? "bg-white/90 backdrop-blur-xl shadow-md border-b border-transparent" : "bg-white border-b border-black/10"
       }`}
     >
-      <div
-        className={`hair absolute inset-x-0 bottom-0 transition-opacity duration-700 ${
-          scrolled ? "opacity-100" : "opacity-0"
-        }`}
-      />
+
       <div className="mx-auto flex h-[88px] w-full max-w-[1320px] items-center justify-between px-7 lg:px-12">
-        <Link href="/" aria-label="Orenda Holdings, home" className="flex items-center gap-3.5">
-          <Starburst size={30} accent="var(--color-gold)" core="var(--color-navy)" />
-          <span className="flex flex-col leading-none">
-            <span className="font-sans text-[0.95rem] font-normal tracking-[0.16em] text-navy">
-              ORENDA
-            </span>
-            <span className="label mt-1 text-[0.5rem] text-gold">Holdings</span>
-          </span>
-        </Link>
+        <button 
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Orenda Holdings, scroll to top" 
+          className="flex items-center"
+        >
+          <img src="/team/imgs/web-logo (2).webp" alt="Orenda Holdings" className="h-14 lg:h-16 w-auto" />
+        </button>
 
         <nav className="hidden items-center gap-9 lg:flex" aria-label="Primary">
           {NAV.map((n) => {
@@ -65,14 +60,14 @@ export function Header() {
               <Link
                 key={n.href}
                 href={n.href}
-                className={`relative py-1 text-[0.82rem] font-light tracking-wide transition-colors duration-300 ${
-                  active ? "text-navy" : "text-muted hover:text-navy"
+                className={`group relative py-1 text-[0.82rem] font-medium tracking-wide transition-colors duration-300 ${
+                  active ? "text-navy" : "text-navy/75 hover:text-navy"
                 }`}
               >
                 {n.label}
                 <span
-                  className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-gold transition-transform duration-500 ${
-                    active ? "scale-x-100" : "scale-x-0"
+                  className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-navy transition-transform duration-500 ${
+                    active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                   }`}
                 />
               </Link>
@@ -89,9 +84,9 @@ export function Header() {
         >
           <svg width="22" height="12" viewBox="0 0 22 12" aria-hidden>
             {open ? (
-              <path d="M2 1l18 10M20 1L2 11" stroke="currentColor" strokeWidth="1" />
+              <path d="M4 1L18 11M18 1L4 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             ) : (
-              <path d="M0 1h22M0 11h22" stroke="currentColor" strokeWidth="1" />
+              <path d="M0 1h22M0 11h22" stroke="currentColor" strokeWidth="1.5" />
             )}
           </svg>
         </button>
@@ -104,9 +99,12 @@ export function Header() {
               <Link
                 key={n.href}
                 href={n.href}
-                className="border-b border-line py-5 font-display text-2xl text-navy"
+                className="flex items-center justify-between border-b border-line py-5 font-sans font-medium text-2xl text-navy"
               >
                 {n.label}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M5 12h14m-7-7l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </Link>
             ))}
           </nav>

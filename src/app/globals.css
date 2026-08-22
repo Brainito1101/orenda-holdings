@@ -24,7 +24,7 @@
   --color-faint: #9a9caa;
   --color-line: #ded8ca;
   --color-line-soft: #ebe6da;
-  --color-ivory: #f7f4ed;
+  --color-ivory: #ffffff;
   --color-ivory-deep: #f0ebe0;
 
   /* Sub-brand accents, used only as small marks */
@@ -38,8 +38,8 @@
   --color-v-star: #09767C;
 
   /* Type */
-  --font-display: var(--font-instrument), "Instrument Serif", Georgia, serif;
-  --font-sans: var(--font-jost), "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), "Manrope", sans-serif;
+  --font-sans: var(--font-manrope), "Manrope", sans-serif;
   --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 }
 
@@ -61,7 +61,7 @@
   }
 
   h1, h2, h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-manrope), sans-serif;
     font-weight: 400;
     text-wrap: balance;
     letter-spacing: -0.012em;
@@ -138,6 +138,10 @@
 }
 .orbit-turn { animation: orbit-turn 240s linear infinite; }
 
+/* FORCE MANROPE GLOBALLY */
+body, body *, header *, footer * {
+  font-family: var(--font-manrope), sans-serif !important;
+}
 @media (prefers-reduced-motion: reduce) {
   .orbit-turn { animation: none; }
 }
