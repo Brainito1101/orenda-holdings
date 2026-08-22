@@ -31,7 +31,7 @@ export function Action({
     return (
       <Link
         href={href}
-        className={`group inline-flex items-center justify-center gap-3.5 rounded-full px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
+        className={`group inline-flex whitespace-nowrap items-center justify-center gap-3.5 rounded-full px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
           invert
             ? "bg-white text-navy hover:bg-white/90"
             : "bg-navy text-ivory hover:bg-navy/90"
@@ -49,7 +49,7 @@ export function Action({
     return (
       <Link
         href={href}
-        className={`group inline-flex items-center justify-center gap-3.5 rounded-full border px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
+        className={`group inline-flex whitespace-nowrap items-center justify-center gap-3.5 rounded-full border px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
           invert
             ? "border-white/25 text-white hover:border-white hover:text-white hover:bg-transparent"
             : "border-navy/25 text-navy hover:border-[#09767C] hover:text-[#09767C] hover:bg-transparent"

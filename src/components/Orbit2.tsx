@@ -114,27 +114,27 @@ export function Orbit2() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-8 sm:gap-12 mt-4 sm:mt-6">
+            <div className="flex items-center gap-4 sm:gap-12 justify-between sm:justify-start mt-4 sm:mt-6 w-full">
               <Action href="#" variant="outline">
                 Explore the Group
               </Action>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                 <button 
                   onClick={handlePrev}
-                  className="flex items-center justify-center w-12 h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
+                  className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
                   aria-label="Previous Vertical"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180 sm:w-[24px] sm:h-[24px]">
                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
                 <button 
                   onClick={handleNext}
-                  className="flex items-center justify-center w-12 h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
+                  className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
                   aria-label="Next Vertical"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-[24px] sm:h-[24px]">
                     <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>

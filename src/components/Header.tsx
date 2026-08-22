@@ -58,7 +58,7 @@ export function Header() {
             const active = pathname === n.href;
             return (
               <Link
-                key={n.href}
+                key={n.label}
                 href={n.href}
                 className={`group relative py-1 text-[0.82rem] font-medium tracking-wide transition-colors duration-300 ${
                   active ? "text-navy" : "text-navy/75 hover:text-navy"
@@ -99,7 +99,7 @@ export function Header() {
           <nav className="flex flex-col pt-6" aria-label="Mobile">
             {NAV.map((n) => (
               <Link
-                key={n.href}
+                key={n.label}
                 href={n.href}
                 className="flex items-center justify-between border-b border-line py-5 font-sans font-medium text-2xl text-navy"
               >
