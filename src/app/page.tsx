@@ -83,12 +83,12 @@ export default function Home() {
         {/* 3D Graphic */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-[30%] top-[5%] animate-[spin_60s_linear_infinite] md:top-1/2 md:-translate-y-[38%] md:-right-[5%] lg:right-[5%] xl:right-[8%]"
+          className="pointer-events-none absolute -right-[15%] top-[12%] animate-[spin_60s_linear_infinite] opacity-30 md:opacity-100 md:top-1/2 md:-translate-y-[38%] md:-right-[5%] lg:right-[5%] xl:right-[8%]"
         >
           <img 
-            src="/team/imgs/image%20557.webp" 
+            src="https://res.cloudinary.com/mqzbailq/image/upload/v1787425096/image_557.webp" 
             alt="" 
-            className="w-[350px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px]" 
+            className="w-[270px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px]" 
           />
         </div>
 

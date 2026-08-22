@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Starburst } from "@/components/Starburst";
 import { Action } from "@/components/ui";
@@ -8,36 +8,21 @@ import { VERTICALS, type Vertical } from "@/data/verticals";
 
 export function Orbit2() {
   const [active, setActive] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollableDistance = rect.height - window.innerHeight;
-      
-      let progress = -rect.top / scrollableDistance;
-      progress = Math.max(0, Math.min(1, progress));
-      
-      const index = Math.min(7, Math.floor(progress * 8));
-      
-      if (index !== active) {
-        setActive(index);
-      }
-    };
+  const handleNext = () => {
+    setActive((prev) => (prev + 1) % 8);
+  };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [active]);
+  const handlePrev = () => {
+    setActive((prev) => (prev - 1 + 8) % 8);
+  };
 
   const v = VERTICALS[active];
 
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-8 lg:pt-36 lg:pb-10">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-28">
+    <div className="relative py-24 lg:py-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-28">
           {/* diagram */}
           <div className="flex justify-center mb-8 sm:mb-0">
             <div
@@ -81,9 +66,10 @@ export function Orbit2() {
                   <button
                     key={item.slug}
                     type="button"
+                    onClick={() => setActive(i)}
                     aria-pressed={on}
                     aria-label={item.name}
-                    className="absolute left-1/2 top-1/2 z-10 flex h-[52px] w-[52px] items-center justify-center rounded-full border bg-white shadow-lg transition-[border-color,transform] duration-700 ease-[cubic-bezier(.2,.8,.25,1)] sm:h-[62px] sm:w-[62px]"
+                    className="absolute left-1/2 top-1/2 z-10 flex h-[52px] w-[52px] items-center justify-center rounded-full border bg-white shadow-lg transition-[border-color,transform] duration-700 ease-[cubic-bezier(.2,.8,.25,1)] sm:h-[62px] sm:w-[62px] cursor-pointer hover:border-black/20 hover:scale-[1.05]"
                     style={{
                       marginLeft: "-26px",
                       marginTop: "-26px",
@@ -104,7 +90,7 @@ export function Orbit2() {
 
           {/* reading pane */}
           <div>
-            <div className="flex items-center gap-5 mb-6 sm:my-0">
+            <div className="flex items-center gap-5 mb-8 sm:mb-12">
               <span className="label font-bold tabular-nums" style={{ color: v.accent }}>
                 {String(active + 1).padStart(2, "0")} / 08
               </span>
@@ -119,29 +105,40 @@ export function Orbit2() {
               </div>
             </div>
 
-            <div className="grid mt-4 sm:mt-8">
-              {VERTICALS.map((item: Vertical, i: number) => {
-                const on = i === active;
-                return (
-                  <div 
-                    key={item.slug} 
-                    className={`col-start-1 row-start-1 transition-opacity duration-700 ${on ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
-                  >
-                    <h3 className="text-[1.8rem] sm:text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[3.5rem]">
-                      {item.name}
-                    </h3>
-                    <p className="mt-4 max-w-lg text-[0.95rem] font-light leading-relaxed text-muted lg:mt-5">
-                      {item.body}
-                    </p>
-                  </div>
-                );
-              })}
+            <div className="min-h-[140px] sm:min-h-[160px] animate-in fade-in duration-700" key={active}>
+              <h3 className="text-[1.8rem] sm:text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[3.5rem] mb-6">
+                {v.name}
+              </h3>
+              <p className="max-w-lg text-[0.95rem] font-light leading-relaxed text-muted mb-8">
+                {v.body}
+              </p>
             </div>
 
-            <div className="mt-4">
+            <div className="flex flex-wrap items-center gap-8 sm:gap-12 mt-4 sm:mt-6">
               <Action href="#" variant="outline">
                 Explore the Group
               </Action>
+
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={handlePrev}
+                  className="flex items-center justify-center w-12 h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
+                  aria-label="Previous Vertical"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+                <button 
+                  onClick={handleNext}
+                  className="flex items-center justify-center w-12 h-12 rounded-full border border-black/10 hover:border-black/30 transition-colors"
+                  aria-label="Next Vertical"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>

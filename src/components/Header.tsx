@@ -82,13 +82,15 @@ export function Header() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
-          <svg width="22" height="12" viewBox="0 0 22 12" aria-hidden>
-            {open ? (
-              <path d="M4 1L18 11M18 1L4 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            ) : (
+          {open ? (
+            <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden>
+              <path d="M5 5L17 17M17 5L5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="22" height="12" viewBox="0 0 22 12" aria-hidden>
               <path d="M0 1h22M0 11h22" stroke="currentColor" strokeWidth="1.5" />
-            )}
-          </svg>
+            </svg>
+          )}
         </button>
       </div>
 
