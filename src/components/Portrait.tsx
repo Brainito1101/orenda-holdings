@@ -48,7 +48,7 @@ export function Portrait({
           onError={() => setFailed(true)}
         />
       ) : (
-        <div className="absolute inset-0 border border-line bg-ivory-deep" aria-hidden>
+        <div className={`absolute inset-0 border border-black/10 bg-white ${rounded}`} aria-hidden>
           <svg
             viewBox="0 0 200 200"
             className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2"

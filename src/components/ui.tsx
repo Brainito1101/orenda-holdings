@@ -8,9 +8,9 @@ export function Container({ children, className = "" }: { children: ReactNode; c
   );
 }
 
-export function Label({ children, tone = "gold" }: { children: ReactNode; tone?: "gold" | "muted" | "light" }) {
+export function Label({ children, tone = "gold", className = "" }: { children: ReactNode; tone?: "gold" | "muted" | "light"; className?: string }) {
   const tones = { gold: "text-gold", muted: "text-faint", light: "text-white/35" } as const;
-  return <span className={`label ${tones[tone]}`}>{children}</span>;
+  return <span className={`label ${tones[tone]} ${className}`}>{children}</span>;
 }
 
 /** Understated link-style action. Luxury does not shout. */
@@ -19,21 +19,41 @@ export function Action({
   children,
   variant = "line",
   invert = false,
+  className = "",
 }: {
   href: string;
   children: ReactNode;
-  variant?: "line" | "outline";
+  variant?: "line" | "outline" | "solid";
   invert?: boolean;
+  className?: string;
 }) {
+  if (variant === "solid") {
+    return (
+      <Link
+        href={href}
+        className={`group inline-flex items-center justify-center gap-3.5 rounded-full px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
+          invert
+            ? "bg-white text-navy hover:bg-white/90"
+            : "bg-navy text-ivory hover:bg-navy/90"
+        } ${className}`}
+      >
+        {children}
+        <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1.5">
+          &rarr;
+        </span>
+      </Link>
+    );
+  }
+
   if (variant === "outline") {
     return (
       <Link
         href={href}
-        className={`group inline-flex items-center gap-3.5 rounded-full border px-8 py-4 text-sm font-light transition-colors duration-500 ${
+        className={`group inline-flex items-center justify-center gap-3.5 rounded-full border px-4 sm:px-8 py-3 sm:py-4 text-sm font-light transition-colors duration-500 ${
           invert
-            ? "border-white/25 text-white hover:border-white hover:bg-white hover:text-navy"
-            : "border-navy/25 text-navy hover:border-navy hover:bg-navy hover:text-ivory"
-        }`}
+            ? "border-white/25 text-white hover:border-white hover:text-white hover:bg-transparent"
+            : "border-navy/25 text-navy hover:border-[#09767C] hover:text-[#09767C] hover:bg-transparent"
+        } ${className}`}
       >
         {children}
         <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1.5">
@@ -123,7 +143,7 @@ export function SectionHead({
 /** Marks demo content. Deliberately visible. */
 export function SampleTag() {
   return (
-    <span className="label border border-gold/40 px-2 py-0.5 text-[0.52rem] text-gold">
+    <span className="border rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest" style={{ color: "#09767C", borderColor: "rgba(9, 118, 124, 0.4)" }}>
       Sample
     </span>
   );
