@@ -9,20 +9,11 @@ const manrope = Manrope({
 });
 import { CountUp } from "@/components/CountUp";
 import { Orbit2 } from "@/components/Orbit2";
-import { Portrait } from "@/components/Portrait";
 import { Reveal } from "@/components/Reveal";
-import { Starburst } from "@/components/Starburst";
-import { Action, Container, Label, Section, SectionHead, SampleTag } from "@/components/ui";
-import { INVESTMENTS } from "@/data/investments";
-import { MEDIA, VALUES } from "@/data/media";
-import { FOUNDERS } from "@/data/team";
-
-const FIGURES = [
-  { n: "15+", l: "Years of leadership in finance and audit" },
-  { n: "08", l: "Active verticals under one parent" },
-  { n: "06", l: "Core sectors served across the Group" },
-  { n: "50+", l: "Lending partners across banks and NBFCs" },
-];
+import { Action, Container, Label, Section, SectionHead } from "@/components/ui";
+import { InquiryForm } from "@/components/InquiryForm";
+import { bySlug } from "@/data/verticals";
+import { CONTACT, ECOSYSTEM, PROCESS, STATS, TAGLINE } from "@/data/site";
 
 export default function Home() {
   return (
@@ -32,15 +23,11 @@ export default function Home() {
         .manrope-override * {
           font-family: var(--font-manrope), sans-serif !important;
         }
-        
-        /* Body: 400-500 */
         .manrope-override p,
         .manrope-override dd,
         .manrope-override figcaption {
           font-weight: 400 !important;
         }
-
-        /* Gold to Teal Overrides for tags and lines */
         .manrope-override {
           --color-gold: #09767C !important;
           --color-gold-light: #09767C !important;
@@ -49,85 +36,74 @@ export default function Home() {
           background-color: #09767C !important;
           opacity: 0.3 !important;
         }
-        
-        /* Hero Title */
         .manrope-override header h1 {
           font-weight: 500 !important;
           letter-spacing: -0.02em;
         }
-        
-        /* Section headings: 700 */
-        .manrope-override h2,
-        .manrope-override h3 {
-          font-weight: 700 !important;
-          letter-spacing: -0.01em;
-        }
-        
-        /* Buttons: 600 */
         .manrope-override a,
         .manrope-override button {
           font-weight: 600 !important;
         }
-        
         .manrope-override .label {
           font-weight: 500 !important;
           letter-spacing: 0.15em;
         }
-        
         .manrope-override .font-normal {
-          font-weight: 400 !important; /* Bump light font up for Manrope */
+          font-weight: 400 !important;
         }
       `}</style>
+      
       {/* ═══════════ 1. HERO ═══════════ */}
-      <header className="relative flex min-h-[100svh] items-center overflow-hidden bg-ivory">
+      <header className="relative flex min-h-[100svh] items-center overflow-hidden bg-ivory" id="home">
         {/* 3D Graphic */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-[15%] top-[12%] animate-[spin_60s_linear_infinite] opacity-30 md:opacity-100 md:top-1/2 md:-translate-y-[38%] md:-right-[5%] lg:right-[5%] xl:right-[8%]"
+          className="pointer-events-none absolute -right-[15%] top-[12%] animate-[spin_60s_linear_infinite] opacity-30 md:opacity-100 md:top-1/2 md:-translate-y-[45%] md:-right-[5%] lg:right-[5%] xl:right-[8%]"
         >
-          <img 
-            src="https://res.cloudinary.com/mqzbailq/image/upload/v1787425096/image_557.webp" 
-            alt="" 
-            className="w-[270px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px]" 
+          <img
+            src="https://res.cloudinary.com/mqzbailq/image/upload/v1787425096/image_557.webp"
+            alt=""
+            className="w-[270px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px]"
           />
         </div>
 
         <Container className="relative pt-36">
           <Reveal>
             <div className="max-w-2xl xl:max-w-3xl">
-              <h1 className="text-[2.8rem] leading-[1] text-navy sm:text-[4rem] lg:text-[5.2rem]">
-                The force behind
-                <br />
-                enterprise.
+              <p className="text-[1.05rem] font-normal italic leading-relaxed text-gold">
+                &ldquo;{TAGLINE}&rdquo;
+              </p>
+
+              <h1 className="mt-6 text-[2.6rem] leading-[1.05] text-navy sm:text-[3.6rem] lg:text-[54px] lg:leading-[1.1]">
+                Building capital. Building trust. Building what&rsquo;s next.
               </h1>
 
-              <p className="mt-12 max-w-lg text-[1.1rem] font-normal leading-relaxed text-muted">
-                A multi-sector business and investment group. Eight verticals across capital,
-                advisory, lending, legal, real estate, digital and hospitality, held under one
-                parent logic.
+              <p className="mt-8 max-w-lg text-[1.1rem] font-normal leading-relaxed text-muted">
+                Orenda Holdings is a diversified group bringing investment advisory, real estate,
+                capital markets, and legal expertise together - all solutions under one roof.
               </p>
 
               <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:flex sm:gap-x-8 sm:gap-y-5">
-                <Action href="#" variant="solid" className="w-full justify-center px-2 sm:w-auto sm:px-8">For Investors</Action>
-                <Action href="#" variant="outline" className="w-full justify-center px-2 sm:w-auto sm:px-8">For Founders</Action>
+                <Action href="#contact" variant="solid" className="w-full justify-center px-2 sm:w-auto sm:px-8">Contact Us</Action>
+                <Action href="/about" variant="outline" className="w-full justify-center px-2 sm:w-auto sm:px-8">About Orenda</Action>
               </div>
             </div>
           </Reveal>
         </Container>
       </header>
 
-      {/* ═══════════ 2. DATA ═══════════ */}
+      {/* ═══════════ 2. STATS BAR ═══════════ */}
       <section className="border-t border-black/10 bg-white py-12 lg:py-16">
         <Container>
-          <div className="grid grid-cols-2 gap-y-10 md:grid-cols-4 md:divide-x md:divide-black/10">
-            {FIGURES.map((f, i) => (
-              <div key={f.l} className="px-6 lg:px-12">
+          <div className="grid grid-cols-1 gap-y-10 text-center sm:grid-cols-3 sm:divide-x sm:divide-black/10">
+            {STATS.map((f, i) => (
+              <div key={f.l} className="px-0 sm:px-8 lg:px-12">
                 <Reveal delay={i * 100}>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col items-center">
                   <dt className="font-display text-[3.2rem] leading-none text-navy lg:text-[4rem]">
                     <CountUp value={f.n} />
                   </dt>
-                  <dd className="mt-4 max-w-[200px] text-[1.02rem] leading-relaxed text-muted">
+                  <dd className="mx-auto mt-4 max-w-[220px] text-[1.02rem] leading-relaxed text-muted">
                     {f.l}
                   </dd>
                   </div>
@@ -138,18 +114,53 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ═══════════ 3. THE GROUP ═══════════ */}
+      {/* ═══════════ 3. 01 / ABOUT ═══════════ */}
+      <Section className="border-t border-black/10">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+          <div className="lg:col-span-5">
+            <SectionHead
+              label="01 / About"
+              title="Engineering trust into every transaction."
+            />
+          </div>
+          <div className="flex flex-col gap-7 lg:col-span-7">
+            <Reveal>
+              <p className="text-[1.05rem] font-normal leading-relaxed text-muted">
+                Orenda Holdings was built on a simple idea: the space between a promoter and an
+                investor should be shorter, clearer, and easier to cross.
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="text-[1.05rem] font-normal leading-relaxed text-muted">
+                We do not simply offer services. We structure capital, advise on transactions,
+                build assets, and protect our clients&rsquo; interests end to end, under one roof.
+              </p>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="text-[1.05rem] font-normal leading-relaxed text-muted">
+                We work with an owner&rsquo;s mindset: reducing complexity, protecting compliance,
+                and taking responsibility for outcomes, not just advice.
+              </p>
+            </Reveal>
+            <Reveal delay={240} className="mt-3">
+              <Action href="/about" variant="outline">Read about the Group</Action>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+
+      {/* ═══════════ 4. 02 / WHAT WE BUILD ═══════════ */}
       <section className="border-t border-black/10 bg-white py-28 lg:py-40">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-10">
             <Reveal>
               <SectionHead
-                label="The Group"
-                title={<>Eight verticals.<br />One parent logic.</>}
+                label="02 / What we build"
+                title={<>Structures for capital. Advisory for growth.<br />Assets for the long term.</>}
               />
             </Reveal>
             <Reveal>
-              <Action href="#" variant="outline">
+              <Action href="/group" variant="outline">
                 All eight
               </Action>
             </Reveal>
@@ -161,200 +172,110 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ═══════════ 4. ABOUT: TEAM + VALUES ═══════════ */}
+      {/* ═══════════ 5. 03 / HOW WE WORK ═══════════ */}
       <Section className="border-t border-black/10">
-        <div className="grid gap-20 lg:grid-cols-12 lg:gap-24">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <SectionHead
-                label="About"
-                title="Founder led, finance first."
-                lede="Orenda is led by chartered accountants whose discipline shapes how the Group builds, governs and grows."
-              />
-            </Reveal>
-            <Reveal className="mt-12">
-              <Action href="#" variant="outline">Read about the Group</Action>
-            </Reveal>
-          </div>
+        <SectionHead
+          label="03 / How we work"
+          title="Discipline before complexity."
+        />
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7">
-            {FOUNDERS.map((f: any, i: number) => (
-              <Reveal key={f.slug} delay={i * 120}>
-                <figure className="group flex flex-col gap-7">
-                  <div className="overflow-hidden">
-                    <Portrait
-                      name={f.name}
-                      photo={f.photo}
-                      rounded="rounded-md"
-                      className="aspect-square w-full"
-                      sizes="(max-width: 768px) 100vw, 380px"
-                    />
-                  </div>
-                  <figcaption>
-                    <h3 className="text-[1.6rem] leading-tight">{f.name}</h3>
-                    <p className="label mt-3 text-faint">
-                      {f.role}, {f.org}
-                    </p>
-                    {f.credentials && (
-                      <p className="mt-2 text-sm font-normal text-muted">{f.credentials}</p>
-                    )}
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* core values */}
-        <div className="mt-28 lg:mt-40">
-          <Reveal>
-            <Label>Core values</Label>
-          </Reveal>
-          <dl className="mt-12 border-t border-black/10">
-            {VALUES.map((v: any, i: number) => (
-              <Reveal key={v.k} delay={i * 70}>
-                <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
-                  <dt className="font-display text-2xl text-navy transition-transform duration-700 group-hover:translate-x-2 lg:col-span-4 lg:text-[2rem]">
-                    {v.k}
-                  </dt>
-                  <dd className="text-[1.02rem] font-normal leading-relaxed text-muted lg:col-span-8">
-                    {v.v}
-                  </dd>
-                </div>
-              </Reveal>
-            ))}
-          </dl>
-        </div>
-      </Section>
-
-      {/* ═══════════ 5. OUR INVESTMENTS ═══════════ */}
-      <Section tone="white" className="border-t border-black/10">
-        <div className="flex flex-wrap items-end justify-between gap-10">
-          <Reveal>
-            <SectionHead
-              label="Our investments"
-              title="Where the Group holds position."
-              lede="Majority and minority positions across financial services, real estate, digital, hospitality and consumer."
-            />
-          </Reveal>
-          <Reveal>
-            <Action href="#" variant="outline">Full portfolio</Action>
-          </Reveal>
-        </div>
-
-        <div className="mt-20 border-t border-black/10">
-          {INVESTMENTS.map((inv: any, i: number) => (
-            <Reveal key={`${inv.name}-${i}`} delay={i * 70}>
-              <Link
-                href="/investments"
-                className="group grid items-baseline gap-4 border-b border-black/10 py-9 transition-colors duration-500 hover:bg-ivory lg:grid-cols-12 lg:gap-8 lg:py-11"
-              >
-                <div className="flex items-center gap-4 lg:col-span-4">
-                  <span
-                    className="h-2 w-2 shrink-0 rounded-full transition-transform duration-500 group-hover:scale-150"
-                    style={{ background: inv.accent }}
-                  />
-                  <h3 className="text-[1.5rem] leading-tight lg:text-[1.8rem]">{inv.name}</h3>
-                  {inv.sample && <SampleTag />}
-                </div>
-                <p className="label text-faint lg:col-span-2">{inv.sector}</p>
-                <p className="label text-faint lg:col-span-2">{inv.stage}</p>
-                <p className="text-sm font-normal text-muted lg:col-span-3">{inv.note}</p>
-                <p className="label text-right text-faint tabular-nums lg:col-span-1">{inv.year}</p>
-              </Link>
+        <dl className="mt-16 border-t border-black/10">
+          {PROCESS.map((p, i) => (
+            <Reveal key={p.k} delay={i * 70}>
+              <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
+                <dt className="flex items-baseline gap-4 lg:col-span-4">
+                  <span className="label text-faint tabular-nums">{p.n}</span>
+                  <span className="font-display text-2xl text-navy transition-transform duration-700 group-hover:translate-x-2 lg:text-[2rem]">
+                    {p.k}.
+                  </span>
+                </dt>
+                <dd className="text-[1.02rem] font-normal leading-relaxed text-muted lg:col-span-8">
+                  {p.v}
+                </dd>
+              </div>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </Section>
 
-      {/* ═══════════ 6. MEDIA ═══════════ */}
-      <Section className="border-t border-black/10">
-        <div className="flex flex-wrap items-end justify-between gap-10">
+      {/* ═══════════ 6. 04 / ECOSYSTEM ═══════════ */}
+      <section id="group" className="border-t border-black/10 bg-white py-28 lg:py-40">
+        <Container>
           <SectionHead
-            label="Media"
-            title="Press, podcasts, events and thinking."
+            label="04 / Ecosystem"
+            title="Distinct companies. One group."
+            lede="Each Orenda company has a clear role. Together, they cover the full journey from advice to asset."
           />
-          <Reveal>
-            <Action href="/media" variant="outline">The media room</Action>
-          </Reveal>
-        </div>
 
-        <div className="mt-28 flex flex-col gap-16">
-          {/* Top Row */}
-          <div className="-mx-4 grid grid-cols-1 gap-y-12 md:-mx-8 md:grid-cols-2 md:divide-x md:divide-black/10 lg:-mx-12 lg:grid-cols-3">
-            {MEDIA.slice(0, 3).map((m: any, i: number) => (
-              <Reveal key={m.slug} delay={i * 60}>
-                <article className="flex h-full flex-col gap-6 px-4 md:px-8 lg:px-12">
-                  <div className="flex items-center justify-between gap-3">
-                    <Label className="text-[#09767C] text-xs font-bold tracking-widest uppercase">{m.kind}</Label>
-                    {m.sample && <SampleTag />}
-                  </div>
-                  <h3 className="text-[1.45rem] leading-[1.2]">{m.title}</h3>
-                  <p className="mt-auto flex items-center gap-3 text-sm font-normal text-muted">
-                    {m.source}
-                    <span aria-hidden>&mdash;</span>
-                    <span className="tabular-nums text-faint">{m.dateLabel}</span>
-                  </p>
-                </article>
-              </Reveal>
-            ))}
+          <div className="mt-16 border-t border-black/10">
+            {ECOSYSTEM.map((e, i) => {
+              const v = bySlug(e.slug);
+              return (
+                <Reveal key={e.slug} delay={i * 70}>
+                  <Link
+                    href={`/group/${e.slug}`}
+                    className="group flex items-center justify-between gap-4 border-b border-black/10 py-7 transition-colors duration-500 hover:bg-ivory lg:py-9"
+                  >
+                    <span className="flex items-center gap-4">
+                      <span
+                        className="h-2 w-2 shrink-0 rounded-full transition-transform duration-500 group-hover:scale-150"
+                        style={{ background: v?.accent }}
+                      />
+                      <span className="text-[1.3rem] leading-tight text-navy sm:text-[1.6rem]">
+                        {e.name} <span className="font-normal text-muted">{e.verb}</span>
+                      </span>
+                    </span>
+                    <span aria-hidden className="text-navy/40 transition-transform duration-500 group-hover:translate-x-1.5 group-hover:text-navy">
+                      &rarr;
+                    </span>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
+        </Container>
+      </section>
 
-          <div className="h-px w-full bg-black/10" />
+      {/* ═══════════ 7. 05 / CONTACT ═══════════ */}
+      <section id="contact" className="relative overflow-hidden border-t border-black/10 bg-white">
+        <AmbientMark size={480} className="pointer-events-none absolute -right-[8%] top-1/2 -translate-y-1/2 opacity-[0.04]" />
+        <Container className="relative py-28 lg:py-40">
+          <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+            <div className="lg:col-span-5">
+              <SectionHead
+                label="05 / Contact"
+                title="Let’s build what matters."
+                lede="Whether you’re a promoter, an investor, or a business exploring the group - we’d like to hear from you."
+              />
 
-          {/* Bottom Row */}
-          <div className="-mx-4 grid grid-cols-1 gap-y-12 md:-mx-8 md:grid-cols-2 md:divide-x md:divide-black/10 lg:-mx-12 lg:grid-cols-3">
-            {MEDIA.slice(3, 6).map((m: any, i: number) => (
-              <Reveal key={m.slug} delay={i * 60}>
-                <article className="flex h-full flex-col gap-6 px-4 md:px-8 lg:px-12">
-                  <div className="flex items-center justify-between gap-3">
-                    <Label className="text-[#09767C] text-xs font-bold tracking-widest uppercase">{m.kind}</Label>
-                    {m.sample && <SampleTag />}
-                  </div>
-                  <h3 className="text-[1.45rem] leading-[1.2]">{m.title}</h3>
-                  <p className="mt-auto flex items-center gap-3 text-sm font-normal text-muted">
-                    {m.source}
-                    <span aria-hidden>&mdash;</span>
-                    <span className="tabular-nums text-faint">{m.dateLabel}</span>
+              <div className="mt-12 flex flex-col gap-8">
+                <Reveal delay={60}>
+                  <Label>Email</Label>
+                  <a href={`mailto:${CONTACT.email}`} className="mt-3 block text-[1.2rem] text-navy transition-colors hover:text-gold">
+                    {CONTACT.email}
+                  </a>
+                </Reveal>
+                <Reveal delay={120}>
+                  <Label>Office</Label>
+                  <p className="mt-3 text-[1.05rem] font-normal leading-relaxed text-navy">
+                    {CONTACT.city}
+                    <br />
+                    {CONTACT.officeLabel}
                   </p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* ═══════════ 7. WHAT NEXT ═══════════ */}
-      <section className="border-t border-black/10 bg-white py-24 lg:py-32 relative overflow-hidden">
-        <AmbientMark size={500} className="absolute right-0 top-[20%] opacity-[0.03] sm:top-[30%]" />
-        <Container className="relative z-10 px-4 sm:px-6 lg:px-8">
-          <Reveal>
-              <div 
-                className="mx-auto max-w-5xl rounded-[2.5rem] px-6 py-12 text-center shadow-2xl sm:p-12 lg:p-20 relative overflow-hidden border border-white/10"
-                style={{ background: "linear-gradient(135deg, #09767C 0%, #02095C 100%)" }}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.1),transparent_70%)]"></div>
-                
-                <div className="relative z-10 flex flex-col items-center">
-                  <h2 className="max-w-3xl text-[2.4rem] font-bold leading-[1.05] text-white sm:text-[3.6rem] lg:text-[4.2rem]">
-                    Let&rsquo;s connect.
-                  </h2>
-                  
-                  <p className="mt-6 sm:mt-8 max-w-2xl text-[1.1rem] font-light leading-relaxed text-white/60">
-                    Whether you are an investor looking to review our Group structure, or a founder seeking capital and operating support to become enterprise ready, we are ready to build together.
-                  </p>
-                  
-                  <div className="mt-10 sm:mt-12 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:justify-center sm:gap-6">
-                    <Link href="#" className="flex w-full items-center justify-center rounded-full bg-white px-9 py-4 text-[0.95rem] font-bold text-navy transition-transform hover:scale-105 sm:w-auto">
-                      For Investors
-                    </Link>
-                    <Link href="#" className="flex w-full items-center justify-center rounded-full bg-transparent border border-white/20 px-9 py-4 text-[0.95rem] font-bold text-white transition-colors hover:bg-white/10 sm:w-auto">
-                      For Founders
-                    </Link>
-                  </div>
-                </div>
+                </Reveal>
+                <Reveal delay={180}>
+                  <Label>Hours</Label>
+                  <p className="mt-3 text-[1.05rem] font-normal leading-relaxed text-navy">{CONTACT.hours}</p>
+                </Reveal>
               </div>
-          </Reveal>
+            </div>
+
+            <div className="lg:col-span-7">
+              <Reveal delay={100}>
+                <InquiryForm />
+              </Reveal>
+            </div>
+          </div>
         </Container>
       </section>
     </div>

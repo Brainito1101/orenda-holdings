@@ -1,21 +1,36 @@
 import Link from "next/link";
 import { Starburst } from "./Starburst";
+import { AmbientMark } from "./AmbientMark";
 
 /**
  * Every route other than the home page. This is a demo build; the home
  * page is the deliverable and the rest are held.
  */
-export function ComingSoon({ title, note }: { title: string; note?: string }) {
+export function ComingSoon({
+  title,
+  note,
+  accent = "#265DFE",
+}: {
+  title: string;
+  note?: string;
+  accent?: string;
+}) {
   return (
-    <section className="flex min-h-[100svh] items-center bg-ivory px-7 pt-24">
-      <div className="mx-auto w-full max-w-[1320px] lg:px-12">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-ivory px-7 pt-24">
+      <AmbientMark
+        size={540}
+        stroke={accent}
+        opacity={0.16}
+        className="pointer-events-none absolute -right-[8%] top-1/2 -translate-y-1/2 md:right-[2%] lg:right-[6%]"
+      />
+      <div className="relative z-10 mx-auto w-full max-w-[1320px] lg:px-12">
         <div className="max-w-2xl">
           <div className="fade-up flex items-center gap-5">
             <Starburst size={30} accent="var(--color-gold)" core="var(--color-navy)" />
             <span className="label text-gold">Coming soon</span>
           </div>
 
-          <h1 className="fade-up d1 mt-10 text-[3rem] leading-[1] text-navy sm:text-[4.5rem]">
+          <h1 className="fade-up d1 mt-10 text-[3rem] leading-[1] text-navy sm:text-[4.5rem] lg:text-[54px] lg:leading-[1.1]">
             {title}
           </h1>
 

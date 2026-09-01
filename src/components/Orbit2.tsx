@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Starburst } from "@/components/Starburst";
 import { Action } from "@/components/ui";
 import { VERTICALS, type Vertical } from "@/data/verticals";
@@ -106,7 +105,7 @@ export function Orbit2() {
             </div>
 
             <div className="min-h-[140px] sm:min-h-[160px] animate-in fade-in duration-700" key={active}>
-              <h3 className="text-[1.8rem] sm:text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[3.5rem] mb-6">
+              <h3 className="text-[1.8rem] sm:text-[2.2rem] font-bold leading-[1.05] text-navy lg:text-[34px] lg:font-semibold lg:leading-[1.3] mb-6">
                 {v.name}
               </h3>
               <p className="max-w-lg text-[0.95rem] font-light leading-relaxed text-muted mb-8">
@@ -115,7 +114,7 @@ export function Orbit2() {
             </div>
 
             <div className="flex items-center gap-4 sm:gap-12 justify-between sm:justify-start mt-4 sm:mt-6 w-full">
-              <Action href="#" variant="outline">
+              <Action href={`/group/${v.slug}`} variant="outline">
                 Explore the Group
               </Action>
 

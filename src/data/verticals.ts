@@ -9,6 +9,12 @@
  * Legal). Everything reads from this file so that cannot recur.
  */
 
+export type Leader = {
+  name: string;
+  role: string;
+  credentials?: string;
+};
+
 export type Vertical = {
   slug: string;
   name: string;
@@ -19,14 +25,31 @@ export type Vertical = {
   accentName: string;
   /** true where the brand book gives a swatch but no hex, or none at all. */
   accentProvisional?: boolean;
+  /** Big headline used on the vertical's own page. */
+  tagline: string;
+  /** Short line used in the orbit / home summary. */
   promise: string;
+  /** Short paragraph used in the orbit / home summary. */
   body: string;
-  solves?: { title: string; text: string }[];
-  audiences?: string[];
-  services?: { title: string; text: string }[];
+  /** Fuller intro paragraph(s) for the detail page. Falls back to `body`. */
+  description?: string;
+  /** A second, shorter descriptive line some verticals carry (e.g. Orenda Realtors). */
+  subline?: string;
+  whatWeDoLabel?: string;
+  whatWeDo?: string[];
+  whatWeDoGrouped?: { title: string; items: string[] }[];
+  whoItsFor?: string[];
+  difference?: string;
+  differenceList?: string[];
+  leadership?: Leader[];
+  leadershipNote?: string;
+  /** Set for verticals that carry their own site, e.g. Orenda Financial Services. */
+  externalSite?: { label: string; href: string };
+  /** A closing call to action line specific to this vertical. */
+  cta?: string;
   related: string[];
-  /** Copy still to come from the client. */
-  thin?: boolean;
+  /** Full detail copy not yet supplied by the client — page renders a holding state. */
+  pending?: boolean;
 };
 
 export const VERTICALS: Vertical[] = [
@@ -37,49 +60,50 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Advisory",
     accent: "#00AAC6",
     accentName: "Ocean Blue",
+    tagline: "Advising for Generational Wealth.",
     promise: "Clarity before action.",
-    body: "Multidisciplinary advisory for businesses, promoters, investors, funds and families, anchored in tax, finance, corporate law and regulatory discipline.",
-    solves: [
-      { title: "Structure before scale", text: "Restructuring, holding design and group architecture set up before growth makes them expensive to change." },
-      { title: "Transactions that hold", text: "M&A, fundraising and AIF formation approached with diligence, valuation and documentation aligned." },
-      { title: "Cross-border readiness", text: "GIFT City and IFSC advisory for businesses positioning to operate beyond a single jurisdiction." },
-      { title: "The finance function itself", text: "Virtual CFO and ERP implementation where the reporting layer needs to catch up with the business." },
+    body: "Multidisciplinary tax, corporate, regulatory, and transaction advisory for promoters, investors, and businesses.",
+    description:
+      "A multidisciplinary advisory firm providing integrated tax, corporate, transaction, financial, regulatory and strategic advisory solutions to businesses, promoters, investors and families.",
+    whatWeDoLabel: "What we do",
+    whatWeDo: [
+      "Direct Tax & International Tax Advisory",
+      "Corporate Restructuring & Reorganisation",
+      "Mergers & Acquisitions",
+      "Divestment & Transaction Advisory",
+      "Inbound & Outbound Investment Advisory",
+      "Fundraising & Capital Structuring",
+      "AIF Formation & Advisory",
+      "GIFT City / IFSC Advisory & Set-up",
+      "SME & Main Board IPO Advisory",
+      "Virtual CFO Services",
+      "ERP Implementation & Business Process Advisory",
+      "KPO",
+      "Corporate & Secretarial Advisory",
     ],
-    audiences: ["Promoters", "Investors and funds", "Family offices", "Corporates", "IPO-track businesses"],
-    services: [
-      { title: "Restructuring and M&A", text: "Group structuring, mergers, acquisitions and divestment support." },
-      { title: "Fundraising and AIF formation", text: "Capital raising, fund set-up and investor documentation." },
-      { title: "GIFT City / IFSC advisory", text: "Entity structuring and regulatory positioning for the IFSC regime." },
-      { title: "IPO compliance", text: "Readiness, governance and disclosure preparation ahead of listing." },
-      { title: "Taxation", text: "Direct and indirect tax advisory, planning and representation." },
-      { title: "Virtual CFO and ERP", text: "Outsourced finance leadership and systems implementation." },
-      { title: "Generational wealth planning", text: "Succession, estate and family governance structures." },
+    whoItsFor: [
+      "Promoters and entrepreneurs",
+      "Startups and growing businesses",
+      "Corporates",
+      "Investors and HNIs",
+      "Family-owned businesses",
+      "Funds and fund managers",
+      "AIFs",
+      "Companies preparing for IPOs",
+      "Businesses undertaking M&A or restructuring",
+      "Entities expanding into GIFT City / IFSC",
     ],
+    difference:
+      "We combine taxation, finance, corporate law, securities, and regulatory expertise under one roof - integrated advice instead of fragmented professional services, backed by technology and strategic advisory capability.",
+    leadership: [
+      { name: "CA Heet Sedani", role: "Partner" },
+      { name: "CA Meet Sedani", role: "Partner" },
+      { name: "CS Bhargavi Gupta", role: "Partner" },
+    ],
+    leadershipNote:
+      "A leadership team spanning taxation, finance, corporate law, securities, and regulatory compliance.",
+    cta: "Advising for Generational Wealth",
     related: ["capital", "legal", "financial-services"],
-  },
-  {
-    slug: "capital",
-    name: "Orenda Capital",
-    short: "Capital",
-    eyebrow: "Capital",
-    accent: "#7248F2",
-    accentName: "Iris",
-    promise: "Investing in possibility.",
-    body: "Investment and capital advisory for businesses, promoters, investors and funds looking to structure opportunity with clarity, discipline and long-term value in mind.",
-    solves: [
-      { title: "Capital without direction", text: "Money that moves without a thesis. Capital is matched to a structure, not just an opportunity." },
-      { title: "Fundraising readiness", text: "Businesses approach the market before the numbers, governance and story can carry the ask." },
-      { title: "Access", text: "Investor and institutional relationships that individual founders rarely reach alone." },
-    ],
-    audiences: ["Founders raising capital", "Investors and HNIs", "Funds", "Merchant and investment bankers"],
-    services: [
-      { title: "Investment advisory", text: "Opportunity assessment, structuring and long-term positioning." },
-      { title: "Venture capital and private equity", text: "Growth capital access across stages." },
-      { title: "AIF-related advisory", text: "Alternative investment fund structuring and participation." },
-      { title: "IPO advisory", text: "Route-to-listing planning and market readiness." },
-      { title: "Investment banking support", text: "Transaction execution support alongside Orenda Advisors." },
-    ],
-    related: ["advisors", "financial-services", "creative-holdings"],
   },
   {
     slug: "financial-services",
@@ -88,86 +112,76 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Financial services",
     accent: "#265DFE",
     accentName: "Ultramarine Blue",
+    tagline: "We help individuals and businesses secure the right loan, from the right lender, at the best possible terms.",
     promise: "Borrow with confidence.",
-    body: "Loan advisory for individuals and businesses looking for the right loan, from the right lender, at the right terms. Founded in 2017, the firm compares borrower profiles across 50+ banks and NBFCs, then helps structure and negotiate the deal.",
-    solves: [
-      { title: "One offer is not a choice", text: "Most borrowers are shown a single option and expected to decide. Profiles are compared across 50+ lenders first." },
-      { title: "Eligibility before application", text: "Understanding what a profile actually supports, before rejections start affecting the credit record." },
-      { title: "Terms, not just approval", text: "Rate, tenure, structure and prepayment terms negotiated rather than accepted." },
+    body: "Loan advisory across 50+ banks and NBFCs - the right lender, the right terms, every time.",
+    description:
+      "Founded in 2017, Orenda Financial Services is a loan advisory firm built on a simple observation: most borrowers accept the first offer they get, simply because no one ever showed them what else was out there. Our technology compares your profile against 50+ banks and NBFCs to find lenders that genuinely suit you, and our team structures and negotiates the deal on your behalf, from checking eligibility to disbursement.",
+    whatWeDoLabel: "What we offer",
+    whatWeDo: ["Home Loans", "Business Loans", "Loan against Property", "Personal Loans", "Professional Loans"],
+    whoItsFor: ["MSME and business owners", "Salaried professionals", "Doctors", "CAs and professionals", "Property owners and home buyers"],
+    differenceList: [
+      "You see what you'll actually get - real terms across 50+ lenders, not a \"rates starting from\" teaser, before anything touches your CIBIL score.",
+      "We pick the structure that fits you - term loan, OD, dropline, LAP matched to how your income actually comes in.",
+      "You talk to people who know loans, no call centre scripts.",
+      "We don't disappear after approval - support through paperwork, approval, and balance transfers down the line.",
     ],
-    audiences: ["MSMEs and business owners", "Salaried professionals", "CAs and professionals", "Property owners", "Home buyers"],
-    services: [
-      { title: "Home loan", text: "Lender comparison and clear approval routes for home buyers." },
-      { title: "Business loan", text: "Structured borrowing for business owners and MSMEs." },
-      { title: "Loan against property", text: "Secured facilities against residential or commercial assets." },
-      { title: "Personal loan", text: "Unsecured borrowing matched to profile and repayment reality." },
-      { title: "Professional loan", text: "Practice and profession-linked financing." },
+    leadership: [
+      { name: "Harsh Bhojani", role: "Founder & Managing Director", credentials: "Chartered Accountant" },
+      { name: "Sanket Parekh", role: "Chief Business Officer & Executive Director", credentials: "Chartered Accountant" },
+      { name: "Pranshu Rughani", role: "Strategic Advisor", credentials: "Engineer" },
     ],
+    externalSite: { label: "orendafinserv.com", href: "https://orendafinserv.com" },
     related: ["advisors", "realtors", "capital"],
   },
   {
-    slug: "creative-holdings",
-    name: "Orenda Creative Holdings",
-    short: "Creative Holdings",
-    eyebrow: "Creatives",
-    accent: "#D4145A",
-    accentName: "Crimson",
-    accentProvisional: true,
-    promise: "Ideas as market-facing assets.",
-    body: "Creative, brand and media-led business assets built to strengthen visibility, communication and enterprise value within the Group. Creative Holdings brings together Orenda's creative, brand and media interests, supporting businesses with communication-led thinking, content direction, brand building and media opportunities.",
-    audiences: ["Group businesses", "Media partners", "Brand-led ventures"],
-    related: ["digital", "capital", "advisors"],
-    thin: true,
-  },
-  {
-    slug: "digital",
-    name: "Orenda Digital",
-    short: "Digital",
-    eyebrow: "Digital",
-    accent: "#DF5123",
-    accentName: "Flame",
-    promise: "Moving value forward.",
-    body: "Strategic digital growth partner for trust-led businesses that need stronger visibility, sharper communication and measurable growth. Some businesses cannot grow on visibility alone, they need credibility, consistency and a system that turns attention into trust.",
-    solves: [
-      { title: "Scattered digital presence", text: "Brings brand, content and platforms into one clear growth system." },
-      { title: "Content without direction", text: "Builds communication around business goals, not only posting frequency." },
-      { title: "Weak conversion journeys", text: "Connects digital visibility with enquiry, trust and measurable action." },
-      { title: "Founder and leadership visibility", text: "Manages communication across relevant channels with strategic consistency." },
-      { title: "Platform execution gaps", text: "Closes the distance between strategy and what actually ships." },
+    slug: "capital",
+    name: "Orenda Capital",
+    short: "Capital",
+    eyebrow: "Capital",
+    accent: "#7248F2",
+    accentName: "Iris",
+    tagline: "Investing in possibility.",
+    promise: "Investing in possibility.",
+    body: "Capital markets and investment structuring.",
+    description:
+      "Investment and capital advisory for businesses, promoters, investors and funds looking to structure opportunity with clarity, discipline and long-term value in mind.",
+    whatWeDoLabel: "What we do",
+    whatWeDo: [
+      "Investment advisory",
+      "Venture capital and private equity access",
+      "AIF-related advisory",
+      "IPO advisory",
+      "Investment banking support",
     ],
-    audiences: ["Financial services", "Healthcare", "Education", "E-commerce", "Trust-led B2B"],
-    services: [
-      { title: "Brand and strategy", text: "Positioning, identity and communication direction." },
-      { title: "Performance marketing", text: "Campaigns built around enquiry quality, not impressions." },
-      { title: "Content systems", text: "Editorial, social and founder-led communication." },
-      { title: "Website development", text: "Sites built for credibility and conversion." },
-      { title: "SEO", text: "Organic visibility for high-consideration categories." },
-    ],
-    related: ["creative-holdings", "financial-services", "realtors"],
+    whoItsFor: ["Founders raising capital", "Investors and HNIs", "Funds", "Merchant and investment bankers"],
+    related: ["advisors", "financial-services", "creative-holdings"],
+    pending: true,
   },
   {
     slug: "realtors",
     name: "Orenda Realtors",
     short: "Realtors",
     eyebrow: "Realtors",
-    accent: "#FFB94A",
+    accent: "#E39C1F",
     accentName: "Quiet Gold",
     accentProvisional: true,
-    promise: "Landmark developments with purpose, precision and trust.",
-    body: "An Ahmedabad-based real estate development company creating residential, commercial and plotting developments across strategically selected locations, combining market intelligence, meticulous planning, premium quality and disciplined execution.",
-    solves: [
-      { title: "Location before launch", text: "Market intelligence drives site selection rather than following it." },
-      { title: "Delivery discipline", text: "Planning and execution held to the same standard as the sales promise." },
-      { title: "Investment guidance", text: "Strategic real estate advice for buyers building long-term wealth, not just closing a unit." },
+    tagline: "Creating Landmark Developments with Purpose, Precision, and Trust.",
+    promise: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
+    body: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
+    description:
+      "An Ahmedabad-based real estate development company creating residential, commercial, and plotting developments across strategically selected locations, combining market intelligence, meticulous planning, premium quality, and flawless execution. Every project is designed with modern architecture, premium amenities, advanced technologies, and environmentally responsible construction practices. Beyond development, we provide strategic real estate investment guidance to help clients build long-term wealth through future-ready assets.",
+    subline: "Strategic Land Investments that reflect innovation, quality, and trust.",
+    whatWeDoLabel: "What we offer",
+    whatWeDo: [
+      "Residential Developments",
+      "Commercial Developments",
+      "Mixed-Use Developments",
+      "Plotting & Township Developments",
+      "Land Acquisition & Development",
+      "Strategic Land Investments",
     ],
-    audiences: ["Homeowners", "Businesses", "Land investors", "Institutional buyers"],
-    services: [
-      { title: "Residential developments", text: "Living spaces planned around location, quality and long-term value." },
-      { title: "Commercial developments", text: "Business-focused assets in strategically selected locations." },
-      { title: "Mixed-use developments", text: "Integrated schemes designed for modern urban needs." },
-      { title: "Plotting and township", text: "Land-led opportunities structured for scale and clarity." },
-      { title: "Land acquisition", text: "Strategic identification, acquisition and development planning." },
-    ],
+    leadership: [{ name: "Karan Rupareliya", role: "Vertical Head & Partner" }],
     related: ["financial-services", "star-holiday-homes", "legal"],
   },
   {
@@ -178,37 +192,103 @@ export const VERTICALS: Vertical[] = [
     accent: "#5B3FA8",
     accentName: "Violet",
     accentProvisional: true,
+    tagline: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
     promise: "Strategic legal counsel for complex matters.",
-    body: "Dispute resolution, litigation and advisory for corporates, founders, HNIs and individuals who need strong representation and clear legal direction. Orenda Legal represents clients before the Supreme Court of India, various High Courts and specialised statutory tribunals.",
-    solves: [
-      { title: "Disputes that need strategy", text: "Litigation approached as a commercial decision, not only a procedural one." },
-      { title: "Drafting that holds up", text: "Agreements and filings written to survive scrutiny rather than to close a file." },
-      { title: "Protecting what was built", text: "IPR, arbitration and corporate remedies for assets already carrying value." },
+    body: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
+    description:
+      "A premier legal practice dedicated to delivering strategic, results-oriented dispute resolution and comprehensive advisory services across diverse sectors. Our vertical specialises in complex civil, criminal, and commercial litigation, representing clients before the Supreme Court of India, various High Courts, and specialised statutory tribunals with robust legal representation, meticulous drafting, and strategic advisory to safeguard client interests.",
+    whatWeDoLabel: "What we offer",
+    whatWeDo: [
+      "Supreme Court & High Court Litigation",
+      "Constitutional Law",
+      "Commercial & Corporate Disputes",
+      "Civil Litigation",
+      "Criminal Defense",
+      "Intellectual Property Rights",
+      "Arbitration & Dispute Resolution",
+      "Legal Drafting & Opinions",
+      "Corporate Legal Advisory",
     ],
-    audiences: ["Corporates and businesses", "Startups", "MSMEs", "High-net-worth individuals", "Property owners and developers", "Professionals and entrepreneurs"],
-    services: [
-      { title: "Court litigation", text: "Supreme Court, High Courts and statutory tribunals." },
-      { title: "Civil and commercial disputes", text: "Contract, property and commercial matters." },
-      { title: "Criminal litigation", text: "Representation across criminal proceedings." },
-      { title: "Intellectual property", text: "Trademark, copyright and IPR enforcement." },
-      { title: "Arbitration", text: "Domestic and institutional arbitration." },
-      { title: "Corporate legal advisory", text: "Governance, compliance and transaction counsel." },
+    whoItsFor: [
+      "Corporates & businesses",
+      "Start-ups",
+      "MSMEs",
+      "High-net worth individuals",
+      "Property owners & developers",
+      "Professionals & entrepreneurs",
+      "Individuals seeking civil or criminal legal remedies",
+    ],
+    leadership: [
+      { name: "Hemal Shah", role: "Advocate", credentials: "BSc LLB, LLM (Criminology), Registered Patent Attorney, Gujarat High Court" },
     ],
     related: ["advisors", "realtors", "capital"],
   },
   {
+    slug: "digital",
+    name: "Orenda Digital",
+    short: "Digital",
+    eyebrow: "Digital",
+    accent: "#DF5123",
+    accentName: "Flame",
+    tagline: "Transforming Businesses Through Digital Excellence.",
+    promise: "Brand, content, and performance marketing for businesses that want to lead.",
+    body: "Brand, content, and performance marketing for businesses that want to lead.",
+    description:
+      "A strategic digital growth partner for businesses that aspire to lead, innovate, and scale. We integrate branding, content, technology, and data intelligence to deliver marketing that drives measurable business impact - powered by real-world financial expertise, driven by digital innovation.",
+    whatWeDoLabel: "What we offer",
+    whatWeDoGrouped: [
+      {
+        title: "Strategy & Management",
+        items: ["Social media strategy across LinkedIn, Instagram, WhatsApp, Facebook, YouTube, X", "Performance Marketing (Meta & Google Ads)"],
+      },
+      {
+        title: "Creative Services",
+        items: ["Branding & creative design", "Video editing", "Content creation"],
+      },
+      {
+        title: "Technical Development",
+        items: ["Website design & development", "SEO"],
+      },
+    ],
+    whoItsFor: ["Financial services", "Healthcare & wellness", "Real estate", "Professional & corporate services", "Founder & executive personal branding"],
+    difference: "Powered by real-world financial expertise, driven by digital innovation.",
+    leadership: [{ name: "Mansi", role: "Co-founder" }],
+    cta: "Book Your Growth Audit",
+    related: ["creative-holdings", "financial-services", "realtors"],
+  },
+  {
+    slug: "creative-holdings",
+    name: "Orenda Creative Holdings",
+    short: "Creative Holdings",
+    eyebrow: "Creatives",
+    accent: "#D4145A",
+    accentName: "Crimson",
+    accentProvisional: true,
+    tagline: "Ideas as market-facing assets.",
+    promise: "Ideas as market-facing assets.",
+    body: "Creative, brand and media-led business assets built to strengthen visibility, communication and enterprise value within the Group.",
+    description:
+      "Creative Holdings brings together Orenda's creative, brand and media interests, supporting businesses with communication-led thinking, content direction, brand building and media opportunities.",
+    whoItsFor: ["Group businesses", "Media partners", "Brand-led ventures"],
+    related: ["digital", "capital", "advisors"],
+    pending: true,
+  },
+  {
     slug: "star-holiday-homes",
-    name: "Orenda Star Holiday Homes LLC",
+    name: "Orenda Star Holiday Homes",
     short: "Star Holiday Homes",
     eyebrow: "Hospitality",
-    accent: "#0C7074",
+    accent: "#09767C",
     accentName: "Orenda Teal",
     accentProvisional: true,
+    tagline: "Lifestyle-led value, beyond core finance.",
     promise: "Lifestyle-led value, beyond core finance.",
-    body: "Holiday homes and hospitality-led assets within the wider Orenda ecosystem, built around lifestyle, experience and long-term value. Star Holiday Homes LLC represents the Group's presence in global hospitality and holiday home opportunities.",
-    audiences: ["International investors", "Lifestyle buyers", "Hospitality partners"],
+    body: "Holiday homes and hospitality-led assets within the wider Orenda ecosystem, built around lifestyle, experience and long-term value.",
+    description:
+      "Star Holiday Homes represents the Group's presence in global hospitality and holiday home opportunities.",
+    whoItsFor: ["International investors", "Lifestyle buyers", "Hospitality partners"],
     related: ["realtors", "capital", "advisors"],
-    thin: true,
+    pending: true,
   },
 ];
 

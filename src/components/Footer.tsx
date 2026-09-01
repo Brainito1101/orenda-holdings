@@ -1,22 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Starburst } from "@/components/Starburst";
+import { VERTICALS } from "@/data/verticals";
 
-const NAV = [
-  { label: "The Group", href: "/group" },
-  { label: "For Investors", href: "/investors" },
-  { label: "For Founders", href: "/founders" },
+const QUICK_LINKS = [
   { label: "About", href: "/about" },
-  { label: "Our Investments", href: "/investments" },
-  { label: "Media", href: "/media" },
-  { label: "Contact", href: "/contact" },
-];
-
-const LEGAL = [
-  { label: "Privacy", href: "#" },
-  { label: "Terms", href: "#" },
-  { label: "Disclaimer", href: "#" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Group", href: "/group" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Footer() {
@@ -28,13 +19,16 @@ export function Footer() {
           {/* Column 1: Brand & Socials */}
           <div className="flex flex-col gap-7 lg:col-span-4">
             <div className="flex items-center gap-4">
-              <button 
-                type="button" 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-                aria-label="Orenda Holdings, scroll to top"
+              <Link 
+                href="/" 
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                aria-label="Orenda Holdings, go to home"
+                className="cursor-pointer"
               >
                 <img src="/team/imgs/footer-logo.webp" alt="Orenda Holdings" className="h-12 w-auto lg:h-14" />
-              </button>
+              </Link>
             </div>
             
             <form className="mt-2 flex w-full max-w-[22rem] items-center rounded-full border border-white/10 bg-white/5 p-1 transition-colors focus-within:border-white/30" onSubmit={(e) => e.preventDefault()}>
@@ -78,13 +72,13 @@ export function Footer() {
             <div className="flex flex-col gap-6">
               <h4 className="text-[0.95rem] font-bold tracking-widest text-white uppercase">Quick Links</h4>
               <nav aria-label="Footer Quick Links" className="flex flex-col gap-5">
-                {['About', 'Services', 'Industries', 'Group Companies', 'Careers', 'Contact'].map((label) => (
+                {QUICK_LINKS.map((l) => (
                   <Link
-                    key={label}
-                    href="#"
+                    key={l.label}
+                    href={l.href}
                     className="w-fit text-sm font-normal text-white/60 transition-colors hover:text-white"
                   >
-                    {label}
+                    {l.label}
                   </Link>
                 ))}
               </nav>
@@ -94,13 +88,13 @@ export function Footer() {
             <div className="flex flex-col gap-6">
               <h4 className="text-[0.95rem] font-bold tracking-widest text-white uppercase">Verticals</h4>
               <nav aria-label="Footer Verticals" className="flex flex-col gap-5">
-                {['Orenda Advisors', 'Orenda Capital', 'Orenda Finserve', 'Orenda Creative Holdings', 'Orenda Digital', 'Orenda Realtors', 'Orenda Legal', 'Orenda Star Holiday Homes'].map((label) => (
+                {VERTICALS.map((v) => (
                   <Link
-                    key={label}
-                    href="#"
+                    key={v.slug}
+                    href={`/group/${v.slug}`}
                     className="w-fit text-sm font-normal text-white/60 transition-colors hover:text-white"
                   >
-                    {label}
+                    {v.name}
                   </Link>
                 ))}
               </nav>
