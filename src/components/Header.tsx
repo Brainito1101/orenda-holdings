@@ -6,13 +6,10 @@ import { useEffect, useState } from "react";
 import { Starburst } from "@/components/Starburst";
 
 const NAV = [
-  { label: "The Group", href: "#" },
-  { label: "For Investors", href: "#" },
-  { label: "For Founders", href: "#" },
-  { label: "About", href: "#" },
-  { label: "Our Investments", href: "#" },
-  { label: "Media", href: "#" },
-  { label: "Contact", href: "#" },
+  { label: "About", href: "/about" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Group", href: "/group" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Header() {
@@ -44,14 +41,19 @@ export function Header() {
     >
 
       <div className="mx-auto flex h-[88px] w-full max-w-[1320px] items-center justify-between px-7 lg:px-12">
-        <button 
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Orenda Holdings, scroll to top" 
-          className="flex items-center"
+        <Link 
+          href="/"
+          onClick={(e) => {
+            if (pathname === "/" || pathname === "/#home") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          aria-label="Orenda Holdings, go to home" 
+          className="flex items-center cursor-pointer"
         >
           <img src="/team/imgs/web-logo (2).webp" alt="Orenda Holdings" className="h-14 lg:h-16 w-auto" />
-        </button>
+        </Link>
 
         <nav className="hidden items-center gap-9 lg:flex" aria-label="Primary">
           {NAV.map((n) => {

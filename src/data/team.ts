@@ -29,7 +29,7 @@ export const FOUNDERS: Person[] = [
     credentials: "Chartered Accountant",
     photo: "/team/tarun-shah.jpg",
     founder: true,
-    bio: "Tarun Shah is the Founder of Orenda Group and a Chartered Accountant. His financial background brings discipline, structure and strategic clarity to the Group's approach across advisory, capital, taxation, audit and long-term enterprise building.",
+    bio: "Tarun brings 15+ years of experience across finance, taxation, audit, equity investment, and venture capital. He co-founded Orenda Group to bring integrated, multidisciplinary advisory to promoters and investors under one structure.",
   },
   {
     slug: "mayur-fichadiya",
@@ -39,7 +39,7 @@ export const FOUNDERS: Person[] = [
     credentials: "CA Inter, M.Com",
     photo: "/team/mayur-fichadiya.jpg",
     founder: true,
-    bio: "Mayur Fichadiya is the Founder of Orenda Group with qualifications in CA Inter and M.Com. His experience strengthens the Group's business thinking, financial understanding and operational approach across Orenda's growing ecosystem.",
+    bio: "Mayur co-founded Orenda Group alongside Tarun Shah, bringing deep expertise across finance and investment to the Group's advisory and capital businesses.",
   },
 ];
 

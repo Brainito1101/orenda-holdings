@@ -128,7 +128,7 @@ export function SectionHead({
   return (
     <Reveal className={`flex max-w-3xl flex-col gap-7 ${className}`}>
       {label && <Label tone={light ? "light" : "gold"}>{label}</Label>}
-      <h2 className={`text-[2.4rem] leading-[1.04] sm:text-[3.2rem] lg:text-[4rem] ${light ? "text-white" : ""}`}>
+      <h2 className={`text-[2.4rem] leading-[1.04] sm:text-[3.2rem] lg:text-[34px] lg:font-semibold lg:leading-[1.3] ${light ? "text-white" : ""}`}>
         {title}
       </h2>
       {lede && (
