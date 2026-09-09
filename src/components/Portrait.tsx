@@ -23,14 +23,12 @@ export function Portrait({
   className = "",
   rounded = "rounded-none",
   sizes = "(max-width: 768px) 100vw, 380px",
-  priority = false,
 }: {
   name: string;
   photo?: string;
   className?: string;
   rounded?: string;
   sizes?: string;
-  priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   const show = photo && !failed;
@@ -43,7 +41,6 @@ export function Portrait({
           alt={name}
           fill
           sizes={sizes}
-          priority={priority}
           className="object-cover object-top grayscale transition-all duration-[1400ms] group-hover:grayscale-0"
           onError={() => setFailed(true)}
         />

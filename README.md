@@ -1,10 +1,8 @@
 # Orenda Holdings
 
-Demo build of a new site for **Orenda Holdings**, a multi-sector business and
-investment group. Built with Next.js 16, React 19, TypeScript and Tailwind v4.
-
-> **Status: demo.** The home page is the deliverable. Every other route renders a
-> coming-soon page. Some content is placeholder and is labelled as such on screen.
+Site for **Orenda Holdings**, a multi-sector business and investment group.
+Built with Next.js 16 (App Router), React 19, TypeScript and Tailwind v4.
+Every route is statically generated; there is no server-side code.
 
 ## Running locally
 
@@ -13,34 +11,41 @@ npm install
 npm run dev
 ```
 
-## What is built
+```bash
+npm run build   # production build, prerenders all routes
+npm run lint    # eslint
+```
 
-The home page follows one flow:
+## Routes
 
-1. **Hero** with two audiences, For Investors and For Founders
-2. **Data** band, the Group in figures
-3. **The Group**, eight verticals on an interactive orbit
-4. **About**, founders plus core values
-5. **Our Investments**
-6. **Media**, press, podcasts, events, case studies and insights
-7. **What next**, splitting investors from founders seeking capital
+| Route | Page |
+|---|---|
+| `/` | Home: hero, stats, about, the vertical orbit, process, ecosystem, contact |
+| `/about` | Founding story, beliefs, who we serve |
+| `/group` | Index of the eight verticals |
+| `/group/[slug]` | One page per vertical, generated from `verticals.ts` |
+| `/leadership` | The two founders |
+| `/investments` | Portfolio rows (placeholder content, see below) |
+| `/investors`, `/founders` | Holding pages |
+
+Note: `/investments`, `/investors` and `/founders` build and render, but nothing
+in the header, footer or page bodies links to them. They are reachable by URL
+only until they are added to the navigation.
 
 ## The data spine
 
-Everything about the eight verticals reads from `src/data/verticals.ts`: the
-orbit, the nav, the footer and any future vertical page. The previous WordPress
-site drove its orbit from hardcoded panel IDs that had drifted out of sync, so
-`#legal` rendered Financial Services and `#hr` rendered Legal. A single source
-removes that whole class of bug.
-
-Other data files:
+Everything about the verticals reads from `src/data/verticals.ts`: the home
+orbit, `/group`, the eight `/group/[slug]` pages and the footer column. The
+previous WordPress site drove its orbit from hardcoded panel IDs that had
+drifted out of sync, so `#legal` rendered Financial Services and `#hr` rendered
+Legal. A single source removes that whole class of bug.
 
 | File | Holds |
 |---|---|
-| `src/data/verticals.ts` | The eight verticals, with each one's brand accent |
-| `src/data/team.ts` | Leadership, with photo paths |
+| `src/data/verticals.ts` | The eight verticals, each with its brand accent |
+| `src/data/site.ts` | Tagline, stats, process, ecosystem, beliefs, contact |
+| `src/data/team.ts` | `FOUNDERS` (rendered) and `TEAM` (not yet rendered) |
 | `src/data/investments.ts` | Portfolio rows |
-| `src/data/media.ts` | Press, podcast, event, case study, insight, plus core values |
 
 ## The mark
 
@@ -52,28 +57,25 @@ at any size, and a colour prop per vertical.
 
 ## Placeholder content
 
-Two things are deliberately marked **SAMPLE** in the interface and must be
-replaced before this is published anywhere real:
+`src/data/investments.ts` is demo content. Every record is flagged `sample: true`
+and renders with a visible **SAMPLE** tag. Replace the records and drop the flag
+before this goes anywhere real.
 
-- `src/data/investments.ts`, portfolio entries
-- `src/data/media.ts`, press and appearance entries
-
-No real press coverage, events or holdings have been invented. Replace the
-records and delete the `sample` flag.
-
-Team photographs are absent. Each person falls back to a monogram panel until a
-file appears in `public/team/`, named as in `src/data/team.ts`.
+Team photographs are absent. Each person falls back to a designed monogram panel
+until a file appears in `public/team/`, named as in `src/data/team.ts`.
 
 ## Typography
 
 The brand book specifies **Stolzl** and **Acumin Variable**, both commercial
-licences that are not yet cleared. Standing in: **Instrument Serif** for the
-editorial voice and **Jost**, the closest free relative to Stolzl, for interface
-text. Swap them once the licences are in place.
+licences that are not yet cleared. **Manrope** stands in for both and is the only
+family the interface loads or renders — a global rule in `globals.css` forces it
+across the whole document. Swap it once the licences are in place.
 
-## Palette
+## Known gaps
 
-Navy leads and gold is the single accent, following the brand book's instruction
-that Midnight Blue should lead with the accent used sparingly. Each vertical
-keeps its own colour from the brand book's sub-brand system, used only as a
-small mark.
+- Both forms are inert. `InquiryForm` shows a success state without sending
+  anything, and the footer newsletter field discards the address. Neither has a
+  server action or API route behind it.
+- `npm run lint` reports one error in `Header.tsx` (`setState` called inside an
+  effect to close the mobile menu on navigation) and three `no-img-element`
+  warnings for the two logos and the remote hero image.

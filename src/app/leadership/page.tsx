@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, Label, Section } from "@/components/ui";
+import { Container, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Portrait } from "@/components/Portrait";
 import { Reveal } from "@/components/Reveal";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function LeadershipPage() {
   return (
     <div className="flex flex-col">
-      <header className="relative flex min-h-[65svh] lg:min-h-[75svh] items-center overflow-hidden bg-ivory pt-28 pb-16 lg:pt-36 lg:pb-24">
+      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#7248F2"
@@ -23,7 +23,7 @@ export default function LeadershipPage() {
         <Container className="relative w-full">
           <Reveal>
             <Label>Leadership</Label>
-            <h1 className="mt-6 max-w-3xl text-[2.6rem] leading-[1.05] text-navy sm:text-[3.6rem] lg:text-[54px] lg:leading-[1.1]">
+            <h1 className="mt-6 max-w-3xl text-[2.35rem] leading-[1.08] text-navy sm:text-[2.9rem] md:text-[3.3rem] lg:text-[54px] lg:leading-[1.1] 2xl:text-[64px] 3xl:text-[72px]">
               Founder led, finance first.
             </h1>
             <p className="mt-8 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted">
@@ -35,7 +35,7 @@ export default function LeadershipPage() {
       </header>
 
       <Section tone="white" className="border-t border-black/10">
-        <div className="grid gap-16 sm:grid-cols-2 lg:gap-20">
+        <div className="grid gap-12 sm:grid-cols-2 sm:gap-10 md:gap-14 lg:gap-20">
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.slug} delay={i * 120}>
               <figure className="group flex flex-col gap-7">

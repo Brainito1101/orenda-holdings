@@ -1,33 +1,14 @@
 import type { Metadata } from "next";
-import { Jost, Instrument_Serif, IBM_Plex_Mono, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 /**
- * Substitutes. The brand book specifies Stolzl and Acumin Variable, both
- * commercial licences not yet cleared. Instrument Serif carries the
- * editorial voice; Jost is the closest free relative to Stolzl.
- * See reference/DECISIONS.md.
+ * Substitute. The brand book specifies Stolzl and Acumin Variable, both
+ * commercial licences not yet cleared. Manrope stands in for both and is
+ * the only family the interface renders.
  */
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
-const jost = Jost({
-  variable: "--font-jost",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  display: "swap",
-});
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
@@ -48,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${instrument.variable} ${jost.variable} ${plexMono.variable} ${manrope.variable} h-full antialiased`}
+      className={`${manrope.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans" style={{ backgroundColor: '#ffffff', color: '#0a1a2f', fontFamily: 'var(--font-manrope), sans-serif' }}>
         <Header />
