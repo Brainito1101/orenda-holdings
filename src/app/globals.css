@@ -3,50 +3,60 @@
 /* ============================================================
    Orenda Holdings
    Restraint over decoration. Warm paper, deep navy, one metallic
-   accent used sparingly. Instrument Serif carries the voice.
+   accent used sparingly.
    ============================================================ */
 
 @theme {
+  /*
+   * One tier above Tailwind's 2xl (1536px), for desktop displays that are
+   * genuinely large rather than just wide: 27" 5K (2560px CSS), Pro Display
+   * XDR (3008px CSS), 34" ultrawide (3440px CSS). Below this the 2xl tier
+   * already covers 16" laptops and 1080p/1440p monitors.
+   *
+   * Must be declared in rem to match Tailwind's built-in breakpoints. A px
+   * value sorts ahead of the rem-based defaults, so the 2xl rules get emitted
+   * last and silently override every 3xl rule.
+   */
+  --breakpoint-3xl: 120rem; /* 1920px */
+
   /* Primary */
   --color-navy: #050b5b;
   --color-navy-deep: #04072f;
-  --color-navy-700: #101a78;
-  --color-navy-400: #5a63a8;
 
   /* Single metallic accent */
   --color-gold: #a8791f;
-  --color-gold-light: #cdaa5e;
-  --color-gold-soft: #e8d9b8;
 
   /* Warm paper neutrals */
   --color-ink: #1a1d2e;
   --color-muted: #6b6f80;
   --color-faint: #9a9caa;
   --color-line: #ded8ca;
-  --color-line-soft: #ebe6da;
   --color-ivory: #ffffff;
-  --color-ivory-deep: #f0ebe0;
 
-  /* Sub-brand accents, used only as small marks */
-  --color-v-advisors: #00aac6;
-  --color-v-capital: #7248f2;
+  /* Sub-brand accents, referenced by src/data/investments.ts */
   --color-v-finserve: #265dfe;
   --color-v-creative: #d4145a;
   --color-v-digital: #df5123;
   --color-v-realtors: #e39c1f;
-  --color-v-legal: #5b3fa8;
   --color-v-star: #09767C;
 
   /* Type */
   --font-display: var(--font-manrope), "Manrope", sans-serif;
   --font-sans: var(--font-manrope), "Manrope", sans-serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Clears the fixed header when jumping to #contact / #group. */
     scroll-padding-top: 6rem;
+    @media (min-width: 1536px) {
+      /* the header grows to 100px at 2xl */
+      scroll-padding-top: 7rem;
+    }
+    /* Stops iOS inflating body text when a phone is rotated to landscape. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -77,7 +87,7 @@
     color: var(--color-navy) !important;
   }
 
-  h4, h5 {
+  h4 {
     font-family: var(--font-sans);
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -93,8 +103,8 @@
 }
 
 /* ---------- micro label ---------- */
+/* font-family is not set here: the global Manrope rule below overrides it. */
 .label {
-  font-family: var(--font-mono);
   font-size: 0.66rem;
   font-weight: 400;
   letter-spacing: 0.26em;
@@ -114,7 +124,6 @@
 .d2 { animation-delay: .24s; }
 .d3 { animation-delay: .36s; }
 .d4 { animation-delay: .5s; }
-.d5 { animation-delay: .64s; }
 
 @keyframes draw-line {
   from { transform: scaleX(0); }

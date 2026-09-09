@@ -1,23 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Manrope } from "next/font/google";
 import { AmbientMark } from "@/components/AmbientMark";
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
-});
 import { CountUp } from "@/components/CountUp";
 import { Orbit2 } from "@/components/Orbit2";
 import { Reveal } from "@/components/Reveal";
-import { Action, Container, Label, Section, SectionHead } from "@/components/ui";
+import { Action, Container, Label, Section, SECTION_Y, SectionHead, STRIP_Y } from "@/components/ui";
 import { InquiryForm } from "@/components/InquiryForm";
 import { bySlug } from "@/data/verticals";
 import { CONTACT, ECOSYSTEM, PROCESS, STATS, TAGLINE } from "@/data/site";
 
 export default function Home() {
   return (
-    <div className={`${manrope.variable} manrope-override flex min-h-screen flex-col`}>
+    <div className="manrope-override flex min-h-screen flex-col">
       <style>{`
         .manrope-override,
         .manrope-override * {
@@ -30,7 +24,6 @@ export default function Home() {
         }
         .manrope-override {
           --color-gold: #09767C !important;
-          --color-gold-light: #09767C !important;
         }
         .manrope-override .hair {
           background-color: #09767C !important;
@@ -60,21 +53,31 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute -right-[15%] top-[12%] animate-[spin_60s_linear_infinite] opacity-30 md:opacity-100 md:top-1/2 md:-translate-y-[45%] md:-right-[5%] lg:right-[5%] xl:right-[8%]"
         >
-          <img
-            src="https://res.cloudinary.com/mqzbailq/image/upload/v1787425096/image_557.webp"
+          {/*
+            The bare asset URL is a 522px render, which goes soft once it is
+            drawn at 720px on a large Retina display. `w_1440` asks Cloudinary
+            for the full-resolution original; `sizes` mirrors the width classes
+            below so phones still fetch a small file rather than the 1440px one.
+          */}
+          <Image
+            src="https://res.cloudinary.com/mqzbailq/image/upload/w_1440/v1787425096/image_557.webp"
             alt=""
-            className="w-[270px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px]"
+            width={1440}
+            height={1440}
+            loading="eager"
+            sizes="(max-width: 767px) 270px, (max-width: 1023px) 380px, (max-width: 1279px) 480px, (max-width: 1535px) 550px, (max-width: 1919px) 640px, 720px"
+            className="w-[270px] object-contain md:w-[380px] lg:w-[480px] xl:w-[550px] 2xl:w-[640px] 3xl:w-[720px]"
           />
         </div>
 
-        <Container className="relative pt-36">
+        <Container className="relative pt-32 sm:pt-36 2xl:pt-44 3xl:pt-48">
           <Reveal>
             <div className="max-w-2xl xl:max-w-3xl">
               <p className="text-[1.05rem] font-normal italic leading-relaxed text-gold">
                 &ldquo;{TAGLINE}&rdquo;
               </p>
 
-              <h1 className="mt-6 text-[2.6rem] leading-[1.05] text-navy sm:text-[3.6rem] lg:text-[54px] lg:leading-[1.1]">
+              <h1 className="mt-6 text-[2.35rem] leading-[1.08] text-navy sm:text-[2.9rem] md:text-[3.3rem] lg:text-[54px] lg:leading-[1.1] 2xl:text-[64px] 3xl:text-[72px]">
                 Building capital. Building trust. Building what&rsquo;s next.
               </h1>
 
@@ -93,14 +96,14 @@ export default function Home() {
       </header>
 
       {/* ═══════════ 2. STATS BAR ═══════════ */}
-      <section className="border-t border-black/10 bg-white py-12 lg:py-16">
+      <section className={`border-t border-black/10 bg-white ${STRIP_Y}`}>
         <Container>
           <div className="grid grid-cols-1 gap-y-10 text-center sm:grid-cols-3 sm:divide-x sm:divide-black/10">
             {STATS.map((f, i) => (
               <div key={f.l} className="px-0 sm:px-8 lg:px-12">
                 <Reveal delay={i * 100}>
                   <div className="flex flex-col items-center">
-                  <dt className="font-display text-[3.2rem] leading-none text-navy lg:text-[4rem]">
+                  <dt className="font-display text-[2.8rem] leading-none text-navy sm:text-[3.2rem] lg:text-[4rem] 2xl:text-[4.6rem] 3xl:text-[5.2rem]">
                     <CountUp value={f.n} />
                   </dt>
                   <dd className="mx-auto mt-4 max-w-[220px] text-[1.02rem] leading-relaxed text-muted">
@@ -116,7 +119,7 @@ export default function Home() {
 
       {/* ═══════════ 3. 01 / ABOUT ═══════════ */}
       <Section className="border-t border-black/10">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+        <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
           <div className="lg:col-span-5">
             <SectionHead
               label="01 / About"
@@ -150,7 +153,7 @@ export default function Home() {
       </Section>
 
       {/* ═══════════ 4. 02 / WHAT WE BUILD ═══════════ */}
-      <section className="border-t border-black/10 bg-white py-28 lg:py-40">
+      <section className={`border-t border-black/10 bg-white ${SECTION_Y}`}>
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-10">
             <Reveal>
@@ -166,7 +169,7 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-6 md:mt-10">
             <Orbit2 />
           </div>
         </Container>
@@ -179,7 +182,7 @@ export default function Home() {
           title="Discipline before complexity."
         />
 
-        <dl className="mt-16 border-t border-black/10">
+        <dl className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
           {PROCESS.map((p, i) => (
             <Reveal key={p.k} delay={i * 70}>
               <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
@@ -199,7 +202,7 @@ export default function Home() {
       </Section>
 
       {/* ═══════════ 6. 04 / ECOSYSTEM ═══════════ */}
-      <section id="group" className="border-t border-black/10 bg-white py-28 lg:py-40">
+      <section id="group" className={`border-t border-black/10 bg-white ${SECTION_Y}`}>
         <Container>
           <SectionHead
             label="04 / Ecosystem"
@@ -207,21 +210,21 @@ export default function Home() {
             lede="Each Orenda company has a clear role. Together, they cover the full journey from advice to asset."
           />
 
-          <div className="mt-16 border-t border-black/10">
+          <div className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
             {ECOSYSTEM.map((e, i) => {
               const v = bySlug(e.slug);
               return (
                 <Reveal key={e.slug} delay={i * 70}>
                   <Link
                     href={`/group/${e.slug}`}
-                    className="group flex items-center justify-between gap-4 border-b border-black/10 py-7 transition-colors duration-500 hover:bg-ivory lg:py-9"
+                    className="group flex items-center justify-between gap-4 border-b border-black/10 py-6 transition-colors duration-500 hover:bg-ivory sm:py-7 lg:py-9"
                   >
                     <span className="flex items-center gap-4">
                       <span
                         className="h-2 w-2 shrink-0 rounded-full transition-transform duration-500 group-hover:scale-150"
                         style={{ background: v?.accent }}
                       />
-                      <span className="text-[1.3rem] leading-tight text-navy sm:text-[1.6rem]">
+                      <span className="text-[1.15rem] leading-tight text-navy sm:text-[1.4rem] lg:text-[1.6rem] 2xl:text-[1.8rem]">
                         {e.name} <span className="font-normal text-muted">{e.verb}</span>
                       </span>
                     </span>
@@ -239,8 +242,8 @@ export default function Home() {
       {/* ═══════════ 7. 05 / CONTACT ═══════════ */}
       <section id="contact" className="relative overflow-hidden border-t border-black/10 bg-white">
         <AmbientMark size={480} className="pointer-events-none absolute -right-[8%] top-1/2 -translate-y-1/2 opacity-[0.04]" />
-        <Container className="relative py-28 lg:py-40">
-          <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+        <Container className={`relative ${SECTION_Y}`}>
+          <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
             <div className="lg:col-span-5">
               <SectionHead
                 label="05 / Contact"
@@ -251,7 +254,7 @@ export default function Home() {
               <div className="mt-12 flex flex-col gap-8">
                 <Reveal delay={60}>
                   <Label>Email</Label>
-                  <a href={`mailto:${CONTACT.email}`} className="mt-3 block text-[1.2rem] text-navy transition-colors hover:text-gold">
+                  <a href={`mailto:${CONTACT.email}`} className="mt-1.5 inline-block py-1.5 text-[1.2rem] text-navy transition-colors hover:text-gold">
                     {CONTACT.email}
                   </a>
                 </Reveal>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, Label, Section, SectionHead } from "@/components/ui";
+import { Container, HERO_Y, Label, Section, SectionHead } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { BELIEFS, STORY, TAGLINE, WHO_WE_SERVE } from "@/data/site";
@@ -14,7 +14,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
-      <header className="relative flex min-h-[65svh] lg:min-h-[75svh] items-center overflow-hidden bg-ivory pt-28 pb-16 lg:pt-36 lg:pb-24">
+      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#09767C"
@@ -27,7 +27,7 @@ export default function AboutPage() {
             <p className="mt-8 max-w-2xl text-[1.15rem] font-normal italic leading-relaxed text-gold">
               &ldquo;{TAGLINE}&rdquo;
             </p>
-            <h1 className="mt-6 max-w-4xl text-[2.6rem] leading-[1.05] text-navy sm:text-[3.6rem] lg:text-[54px] lg:leading-[1.1]">
+            <h1 className="mt-6 max-w-4xl text-[2.35rem] leading-[1.08] text-navy sm:text-[2.9rem] md:text-[3.3rem] lg:text-[54px] lg:leading-[1.1] 2xl:text-[64px] 3xl:text-[72px]">
               Building the bridge between promoters and investors.
             </h1>
           </Reveal>
@@ -36,7 +36,7 @@ export default function AboutPage() {
 
       {/* ═══════════ STORY ═══════════ */}
       <Section tone="white" className="border-t border-black/10">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+        <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
           <div className="lg:col-span-4">
             <Reveal>
               <Label>The founding idea</Label>
@@ -56,7 +56,7 @@ export default function AboutPage() {
       <Section className="border-t border-black/10">
         <SectionHead label="What we believe" title="Principles, not slogans." />
 
-        <dl className="mt-16 border-t border-black/10">
+        <dl className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
           {BELIEFS.map((b, i) => (
             <Reveal key={b.k} delay={i * 80}>
               <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
@@ -77,7 +77,7 @@ export default function AboutPage() {
 
       {/* ═══════════ WHO WE SERVE ═══════════ */}
       <Section tone="white" className="border-t border-black/10">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-24">
+        <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
           <div className="lg:col-span-5">
             <SectionHead label="Who we serve" title="Built for both sides of the table." />
           </div>

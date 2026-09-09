@@ -18,14 +18,10 @@ export function Starburst({
   size = 96,
   accent = "var(--color-navy)",
   core = "var(--color-navy)",
-  className,
-  title,
 }: {
   size?: number;
   accent?: string;
   core?: string;
-  className?: string;
-  title?: string;
 }) {
   const c = 100; // viewBox centre
   const rays = Array.from({ length: RAYS }, (_, i) => {
@@ -41,10 +37,8 @@ export function Starburst({
       viewBox="0 0 200 200"
       width={size}
       height={size}
-      className={className}
-      role={title ? "img" : "presentation"}
-      aria-label={title}
-      aria-hidden={title ? undefined : true}
+      role="presentation"
+      aria-hidden
     >
       <g>
         {rays.map(({ angle, long }, i) => (

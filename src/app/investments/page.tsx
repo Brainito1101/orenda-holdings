@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, Label, SampleTag, Section } from "@/components/ui";
+import { Container, HERO_Y, Label, SampleTag, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { INVESTMENTS } from "@/data/investments";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function InvestmentsPage() {
   return (
     <div className="flex flex-col">
-      <header className="relative flex min-h-[65svh] lg:min-h-[75svh] items-center overflow-hidden bg-ivory pt-28 pb-16 lg:pt-36 lg:pb-24">
+      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#DF5123"
@@ -22,7 +22,7 @@ export default function InvestmentsPage() {
         <Container className="relative w-full">
           <Reveal>
             <Label>Our investments</Label>
-            <h1 className="mt-6 max-w-2xl text-[2.6rem] leading-[1.05] text-navy sm:text-[3.6rem] lg:text-[54px] lg:leading-[1.1]">
+            <h1 className="mt-6 max-w-2xl text-[2.35rem] leading-[1.08] text-navy sm:text-[2.9rem] md:text-[3.3rem] lg:text-[54px] lg:leading-[1.1] 2xl:text-[64px] 3xl:text-[72px]">
               Where the Group holds position.
             </h1>
             <p className="mt-8 max-w-xl text-[1.05rem] font-normal leading-relaxed text-muted">
@@ -37,10 +37,10 @@ export default function InvestmentsPage() {
         <div className="border-t border-black/10">
           {INVESTMENTS.map((inv, i) => (
             <Reveal key={`${inv.name}-${i}`} delay={i * 70}>
-              <div className="grid items-baseline gap-4 border-b border-black/10 py-9 lg:grid-cols-12 lg:gap-8 lg:py-11">
-                <div className="flex items-center gap-4 lg:col-span-4">
+              <div className="grid items-baseline gap-3 border-b border-black/10 py-7 sm:gap-4 sm:py-9 lg:grid-cols-12 lg:gap-8 lg:py-11">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:col-span-4">
                   <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: inv.accent }} />
-                  <h3 className="text-[1.5rem] leading-tight lg:text-[1.8rem]">{inv.name}</h3>
+                  <h3 className="text-[1.35rem] leading-tight sm:text-[1.5rem] lg:text-[1.8rem]">{inv.name}</h3>
                   {inv.sample && <SampleTag />}
                 </div>
                 <p className="label text-faint lg:col-span-2">{inv.sector}</p>

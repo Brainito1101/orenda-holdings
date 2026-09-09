@@ -23,8 +23,6 @@ export type Vertical = {
   /** Sub-brand accent from the brand book, p27. */
   accent: string;
   accentName: string;
-  /** true where the brand book gives a swatch but no hex, or none at all. */
-  accentProvisional?: boolean;
   /** Big headline used on the vertical's own page. */
   tagline: string;
   /** Short line used in the orbit / home summary. */
@@ -165,7 +163,6 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Realtors",
     accent: "#E39C1F",
     accentName: "Quiet Gold",
-    accentProvisional: true,
     tagline: "Creating Landmark Developments with Purpose, Precision, and Trust.",
     promise: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
     body: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
@@ -191,7 +188,6 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Legal",
     accent: "#5B3FA8",
     accentName: "Violet",
-    accentProvisional: true,
     tagline: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
     promise: "Strategic legal counsel for complex matters.",
     body: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
@@ -263,7 +259,6 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Creatives",
     accent: "#D4145A",
     accentName: "Crimson",
-    accentProvisional: true,
     tagline: "Ideas as market-facing assets.",
     promise: "Ideas as market-facing assets.",
     body: "Creative, brand and media-led business assets built to strengthen visibility, communication and enterprise value within the Group.",
@@ -280,7 +275,6 @@ export const VERTICALS: Vertical[] = [
     eyebrow: "Hospitality",
     accent: "#09767C",
     accentName: "Orenda Teal",
-    accentProvisional: true,
     tagline: "Lifestyle-led value, beyond core finance.",
     promise: "Lifestyle-led value, beyond core finance.",
     body: "Holiday homes and hospitality-led assets within the wider Orenda ecosystem, built around lifestyle, experience and long-term value.",

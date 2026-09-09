@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Action, Container, Label, Section } from "@/components/ui";
+import { Action, BAND_Y, Container, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
 import { Reveal } from "@/components/Reveal";
@@ -31,7 +31,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
   return (
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
-      <header className="relative flex min-h-[65svh] lg:min-h-[75svh] items-center overflow-hidden bg-ivory pt-28 pb-16 lg:pt-36 lg:pb-24">
+      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke={v.accent}
@@ -53,7 +53,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               )}
             </div>
 
-            <h1 className="mt-8 max-w-3xl text-[2.4rem] leading-[1.06] text-navy sm:text-[3.2rem] lg:text-[54px] lg:leading-[1.1]">
+            <h1 className="mt-8 max-w-3xl text-[2.2rem] leading-[1.08] text-navy sm:text-[2.8rem] md:text-[3.2rem] lg:text-[54px] lg:leading-[1.1] 2xl:text-[64px] 3xl:text-[72px]">
               {v.tagline}
             </h1>
 
@@ -118,7 +118,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               </Reveal>
 
               {v.whatWeDoGrouped ? (
-                <div className="mt-10 grid gap-14 sm:grid-cols-3">
+                <div className="mt-10 grid gap-10 sm:grid-cols-2 md:gap-14 lg:grid-cols-3">
                   {v.whatWeDoGrouped.map((g, gi) => (
                     <Reveal key={g.title} delay={gi * 100}>
                       <h3 className="text-[1.2rem] font-semibold leading-tight text-navy">{g.title}</h3>
@@ -151,7 +151,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {/* ═══════════ WHO IT'S FOR ═══════════ */}
           {v.whoItsFor && (
             <Section className="border-t border-black/10">
-              <div className="grid gap-14 lg:grid-cols-12 lg:gap-24">
+              <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
                 <div className="lg:col-span-4">
                   <Reveal>
                     <Label>Who it&rsquo;s for</Label>
@@ -176,7 +176,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {/* ═══════════ WHAT MAKES US DIFFERENT ═══════════ */}
           {(v.difference || v.differenceList) && (
             <Section tone="white" className="border-t border-black/10">
-              <div className="grid gap-14 lg:grid-cols-12 lg:gap-24">
+              <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
                 <div className="lg:col-span-4">
                   <Reveal>
                     <Label>What makes us different</Label>
@@ -234,7 +234,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           )}
 
           {/* ═══════════ CLOSING CTA ═══════════ */}
-          <section className="border-t border-black/10 bg-white py-20 lg:py-28">
+          <section className={`border-t border-black/10 bg-white ${BAND_Y}`}>
             <Container>
               <Reveal>
                 <div className="flex flex-col items-start gap-8 border-t border-black/10 pt-16 sm:flex-row sm:items-center sm:justify-between">
@@ -261,7 +261,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           <Reveal>
             <Label>Elsewhere in the Group</Label>
           </Reveal>
-          <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-3">
+          <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r, i) => (
               <Reveal key={r.slug} delay={i * 80}>
                 <Link href={`/group/${r.slug}`} className="group flex flex-col gap-4">
