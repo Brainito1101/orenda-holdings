@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 /**
@@ -15,14 +16,25 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
+/**
+ * Site-wide defaults. Each page supplies its own title, description, keywords
+ * and canonical via `pageMetadata()`; what lives here is only the part that is
+ * genuinely shared — the origin every relative URL resolves against, the title
+ * template, and a fallback title/description for any route that forgets.
+ */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://orendagroup.in"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Orenda Holdings | The force behind enterprise",
-    template: "%s | Orenda Holdings",
+    default: `${SITE_NAME} | Business & Investment Group`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
-    "A multi-sector business and investment group. Eight verticals across capital, advisory, lending, legal, real estate, digital and hospitality.",
+    "A diversified business and investment group bringing advisory, capital, lending, real estate, legal and digital together under one roof.",
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: { telephone: false, address: false, email: false },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

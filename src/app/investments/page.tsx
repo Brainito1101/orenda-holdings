@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container, HERO_Y, Label, SampleTag, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { INVESTMENTS } from "@/data/investments";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our Investments",
-  description: "Where the Group holds position - majority and minority positions across financial services, real estate, digital, hospitality and consumer.",
-};
+  description:
+    "Where the Orenda Group holds position: majority and minority stakes across financial services, real estate, digital, hospitality and consumer sectors.",
+  keywords: ["Orenda investments", "investment portfolio", "majority stake", "minority investment", "financial services", "real estate"],
+  path: "/investments",
+  noindex: true,
+});
 
 export default function InvestmentsPage() {
   return (

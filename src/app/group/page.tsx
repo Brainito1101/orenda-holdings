@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
 import { Container, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
 import { Reveal } from "@/components/Reveal";
 import { VERTICALS } from "@/data/verticals";
 
-export const metadata: Metadata = {
-  title: "Group",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Group Companies",
   description:
-    "Eight companies, one parent logic. Orenda Advisors structures, Orenda Capital funds, Orenda Financial Services lends, Orenda Realtors builds, Orenda Legal protects, Orenda Digital grows.",
-};
+    "Eight Orenda companies, one group: advisory, capital, lending, real estate, legal, digital, creative and hospitality, covering advice through to asset.",
+  keywords: ["Orenda group companies", "business verticals", "advisory", "capital", "lending", "real estate", "legal", "digital"],
+  path: "/group",
+});
 
 export default function GroupPage() {
   return (

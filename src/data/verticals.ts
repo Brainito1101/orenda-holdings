@@ -15,11 +15,25 @@ export type Leader = {
   credentials?: string;
 };
 
+/**
+ * Search copy, written per vertical rather than derived from `description`.
+ * Those run 104-535 characters, well past the ~160 Google renders, and read as
+ * prose rather than as a result snippet. `npm run seo:check` asserts the
+ * lengths. `title` is used verbatim (it already carries the company name, so
+ * the "| Orenda Holdings" template would push it past 60).
+ */
+export type VerticalSeo = {
+  title: string;
+  description: string;
+  keywords: string[];
+};
+
 export type Vertical = {
   slug: string;
   name: string;
   short: string;
   eyebrow: string;
+  seo: VerticalSeo;
   /** Sub-brand accent from the brand book, p27. */
   accent: string;
   accentName: string;
@@ -53,6 +67,12 @@ export type Vertical = {
 export const VERTICALS: Vertical[] = [
   {
     slug: "advisors",
+    seo: {
+      title: "Orenda Advisors | Tax & Transaction Advisory",
+      description:
+        "Multidisciplinary tax, corporate, transaction and regulatory advisory for promoters, investors and businesses, from restructuring and M&A to IPO support.",
+      keywords: ["tax advisory", "transaction advisory", "corporate restructuring", "mergers and acquisitions", "GIFT City advisory", "virtual CFO", "Ahmedabad"],
+    },
     name: "Orenda Advisors",
     short: "Advisors",
     eyebrow: "Advisory",
@@ -105,6 +125,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "financial-services",
+    seo: {
+      title: "Orenda Financial Services | Loan Advisory",
+      description:
+        "Loan advisory comparing your profile across 50+ banks and NBFCs, then structuring and negotiating the deal, from eligibility check through to disbursement.",
+      keywords: ["loan advisory", "debt syndication", "business loan", "home loan", "loan against property", "NBFC", "Ahmedabad"],
+    },
     name: "Orenda Financial Services",
     short: "Financial Services",
     eyebrow: "Financial services",
@@ -134,6 +160,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "capital",
+    seo: {
+      title: "Orenda Capital | Investment & Capital Advisory",
+      description:
+        "Investment and capital advisory for businesses, promoters, investors and funds structuring opportunity with clarity, discipline and long-term value in mind.",
+      keywords: ["capital advisory", "investment advisory", "fundraising", "capital structuring", "private equity", "AIF"],
+    },
     name: "Orenda Capital",
     short: "Capital",
     eyebrow: "Capital",
@@ -158,6 +190,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "realtors",
+    seo: {
+      title: "Orenda Realtors | Real Estate Development",
+      description:
+        "Ahmedabad-based developer of residential, commercial and plotting projects, with strategic real estate investment guidance for long-term wealth creation.",
+      keywords: ["real estate development", "Ahmedabad property", "residential projects", "commercial real estate", "plotting development", "real estate investment"],
+    },
     name: "Orenda Realtors",
     short: "Realtors",
     eyebrow: "Realtors",
@@ -183,6 +221,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "legal",
+    seo: {
+      title: "Orenda Legal | Litigation & Legal Advisory",
+      description:
+        "Dispute resolution and legal advisory before the Supreme Court, High Courts and statutory tribunals, across civil, criminal and commercial matters.",
+      keywords: ["litigation", "legal advisory", "dispute resolution", "Supreme Court", "High Court", "commercial litigation", "arbitration"],
+    },
     name: "Orenda Legal",
     short: "Legal",
     eyebrow: "Legal",
@@ -221,6 +265,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "digital",
+    seo: {
+      title: "Orenda Digital | Digital Growth Partner",
+      description:
+        "A digital growth partner combining branding, content, technology and data intelligence to deliver marketing with measurable impact on business results.",
+      keywords: ["digital marketing", "branding", "performance marketing", "SEO", "content strategy", "web development"],
+    },
     name: "Orenda Digital",
     short: "Digital",
     eyebrow: "Digital",
@@ -254,6 +304,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "creative-holdings",
+    seo: {
+      title: "Orenda Creative Holdings | Brand & Media",
+      description:
+        "Orenda's creative, brand and media interests, supporting businesses with communication-led thinking, content direction and brand building across the Group.",
+      keywords: ["creative agency", "brand building", "media", "content direction", "communication strategy"],
+    },
     name: "Orenda Creative Holdings",
     short: "Creative Holdings",
     eyebrow: "Creatives",
@@ -270,6 +326,12 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "star-holiday-homes",
+    seo: {
+      title: "Orenda Star Holiday Homes | Hospitality",
+      description:
+        "The Group's presence in global hospitality and holiday home opportunities, built around lifestyle, guest experience and long-term asset value.",
+      keywords: ["holiday homes", "hospitality investment", "lifestyle assets", "vacation homes", "hospitality assets"],
+    },
     name: "Orenda Star Holiday Homes",
     short: "Star Holiday Homes",
     eyebrow: "Hospitality",
