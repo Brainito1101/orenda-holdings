@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container, HERO_Y, Label, Section, SectionHead } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { BELIEFS, STORY, TAGLINE, WHO_WE_SERVE } from "@/data/site";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About the Group",
   description:
-    "Orenda Holdings LLP was founded in 2026 in Ahmedabad on a simple premise: the gap between a promoter with an idea and an investor with capital should be shorter, clearer, and easier to cross.",
-};
+    "Orenda Holdings was founded in Ahmedabad to shorten the distance between a promoter with an idea and an investor with capital. Our story and principles.",
+  keywords: ["about Orenda Holdings", "business group Ahmedabad", "company profile", "our principles", "promoters and investors"],
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

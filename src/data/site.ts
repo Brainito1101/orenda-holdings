@@ -54,6 +54,18 @@ export const WHO_WE_SERVE = [
   "Funds preparing to raise or deploy capital",
 ];
 
+/**
+ * The official Orenda Holdings accounts (the parent brand, not the individual
+ * verticals — those carry their own handles in verticals.ts). Kept as plain
+ * data so it can also feed the `sameAs` array if Organization structured data
+ * is added later.
+ */
+export const SOCIAL_LINKS = [
+  { label: "Instagram", href: "https://www.instagram.com/orendaholdingsofficial/" },
+  { label: "Facebook", href: "https://www.facebook.com/orendaholdingsofficial" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/orenda-holdings/" },
+] as const;
+
 export const CONTACT = {
   email: "inquiry@orendagroup.in",
   city: "Ahmedabad",

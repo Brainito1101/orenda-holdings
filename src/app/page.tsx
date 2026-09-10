@@ -8,6 +8,16 @@ import { Action, Container, Label, Section, SECTION_Y, SectionHead, STRIP_Y } fr
 import { InquiryForm } from "@/components/InquiryForm";
 import { bySlug } from "@/data/verticals";
 import { CONTACT, ECOSYSTEM, PROCESS, STATS, TAGLINE } from "@/data/site";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  titleAbsolute: "Orenda Holdings | Business & Investment Group",
+  description:
+    "A diversified business and investment group in Ahmedabad, bringing investment advisory, real estate, capital markets and legal expertise under one roof.",
+  keywords: ["business group", "investment group", "investment advisory", "capital markets", "real estate", "legal advisory", "Ahmedabad", "Orenda Holdings"],
+  path: "/",
+});
 
 export default function Home() {
   return (

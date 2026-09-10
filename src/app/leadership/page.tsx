@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Portrait } from "@/components/Portrait";
 import { Reveal } from "@/components/Reveal";
 import { FOUNDERS } from "@/data/team";
 
-export const metadata: Metadata = {
-  title: "Leadership",
-  description: "The founders behind Orenda Group.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Founders & Leadership",
+  description:
+    "Orenda Holdings is led by chartered accountants whose financial discipline shapes how the Group builds, governs and grows. Meet the founding team.",
+  keywords: ["Orenda leadership", "founders", "chartered accountant", "management team", "Tarun Shah", "Mayur Fichadiya"],
+  path: "/leadership",
+});
 
 export default function LeadershipPage() {
   return (

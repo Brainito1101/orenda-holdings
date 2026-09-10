@@ -5,6 +5,7 @@ import { Action, BAND_Y, Container, HERO_Y, Label, Section } from "@/components/
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
 import { Reveal } from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import { bySlug, VERTICALS } from "@/data/verticals";
 
 export function generateStaticParams() {
@@ -15,10 +16,14 @@ export async function generateMetadata(props: PageProps<"/group/[slug]">): Promi
   const { slug } = await props.params;
   const v = bySlug(slug);
   if (!v) return {};
-  return {
-    title: v.name,
-    description: v.description ?? v.body,
-  };
+  return pageMetadata({
+    // `seo.title` already carries the company name, so it is used verbatim
+    // rather than being run through the "| Orenda Holdings" template.
+    titleAbsolute: v.seo.title,
+    description: v.seo.description,
+    keywords: v.seo.keywords,
+    path: `/group/${v.slug}`,
+  });
 }
 
 export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
