@@ -9,7 +9,7 @@ const NAV = [
   { label: "About", href: "/about" },
   { label: "Leadership", href: "/leadership" },
   { label: "Group", href: "/group" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {

@@ -351,6 +351,21 @@ export const VERTICALS: Vertical[] = [
 export const bySlug = (slug: string) => VERTICALS.find((v) => v.slug === slug);
 
 /**
+ * Options for the enquiry form's vertical dropdown, in the order they appear.
+ * `value` is what gets stored in `enquiries.vertical`.
+ *
+ * Shared by the form and the server action so the rendered choices and the
+ * accepted values cannot drift apart — a select is trivially editable in the
+ * browser, so the action validates against this list rather than trusting it.
+ */
+export const ENQUIRY_VERTICALS: { value: string; label: string }[] = [
+  ...VERTICALS.map((v) => ({ value: v.slug, label: v.name })),
+  { value: "general", label: "General enquiry / not sure" },
+];
+
+export const ENQUIRY_VERTICAL_VALUES = ENQUIRY_VERTICALS.map((o) => o.value);
+
+/**
  * Tier 2, independent brands from the brand book's architecture.
  * Carry their own identity; no Orenda lockup. (Decision D1)
  */

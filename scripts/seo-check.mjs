@@ -20,6 +20,7 @@ const ROUTES = [
   ["/", "index.html", true],
   ["/about", "about.html", true],
   ["/group", "group.html", true],
+  ["/contact", "contact.html", true],
   ["/leadership", "leadership.html", true],
   ["/group/advisors", "group/advisors.html", true],
   ["/group/financial-services", "group/financial-services.html", true],

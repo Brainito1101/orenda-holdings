@@ -66,12 +66,47 @@ export const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/orenda-holdings/" },
 ] as const;
 
-export const CONTACT = {
-  email: "inquiry@orendagroup.in",
-  city: "Ahmedabad",
-  officeLabel: "Registered & Corporate Office",
-  hours: "10:00 AM - 7:00 PM",
+type ContactDetails = {
+  emails: { label: string; address: string }[];
+  offices: { label: string; lines: string[] }[];
+  hours: string;
+  city: string;
+  /**
+   * No number has been supplied yet. Set it here and the contact page renders
+   * a Phone block automatically — nothing else needs changing.
+   */
+  phone?: string;
 };
+
+export const CONTACT: ContactDetails = {
+  emails: [
+    { label: "General enquiries", address: "inquiry@orendagroup.in" },
+    { label: "Careers and recruitment", address: "hr@orendagroup.in" },
+  ],
+  offices: [
+    {
+      label: "Registered Office",
+      lines: [
+        "Pinnacle Business Park, Synergy Tower",
+        "Corporate Rd, Prahlad Nagar",
+        "Ahmedabad, Gujarat 380015",
+      ],
+    },
+    {
+      label: "Corporate Office",
+      lines: [
+        "Z2, Floor 28, Opp Baghbaan Party Plot",
+        "Zydus Hospital Road, Thaltej",
+        "Ahmedabad, Gujarat 380059",
+      ],
+    },
+  ],
+  hours: "10:00 AM - 7:00 PM",
+  city: "Ahmedabad",
+};
+
+/** The address to show wherever only one will fit. */
+export const PRIMARY_EMAIL = CONTACT.emails[0].address;
 
 export const STORY = [
   "Orenda Holdings LLP was founded in 2026 in Ahmedabad, with a simple premise: the gap between a promoter with an idea and an investor with capital should be shorter, clearer, and easier to cross.",

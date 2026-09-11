@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { ENQUIRY_VERTICAL_VALUES } from "@/data/verticals";
 
 export type FormState = { ok: true } | { ok: false; error: string } | null;
 
@@ -21,16 +22,22 @@ export async function submitEnquiry(_prev: FormState, formData: FormData): Promi
   const name = field(formData.get("name"), 120);
   const email = field(formData.get("email"), 254);
   const message = field(formData.get("message"), 4000);
+  const vertical = field(formData.get("vertical"), 60);
 
   if (!name) return { ok: false, error: "Please enter your name." };
   if (!EMAIL.test(email)) return { ok: false, error: "Please enter a valid email address." };
+  if (!vertical) return { ok: false, error: "Please choose which vertical this is about." };
+  // A <select> is trivially edited in devtools, so only known values are stored.
+  if (!ENQUIRY_VERTICAL_VALUES.includes(vertical)) {
+    return { ok: false, error: "Please choose a vertical from the list." };
+  }
   if (!message) return { ok: false, error: "Please tell us what you're looking to build." };
 
   try {
     const sql = db();
     await sql`
-      insert into enquiries (name, email, message)
-      values (${name}, ${email}, ${message})
+      insert into enquiries (name, email, message, vertical)
+      values (${name}, ${email}, ${message}, ${vertical})
     `;
     return { ok: true };
   } catch (error) {

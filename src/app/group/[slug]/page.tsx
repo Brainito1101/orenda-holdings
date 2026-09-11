@@ -73,7 +73,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-8">
-              <Action href="/#contact" variant="solid">Get in touch</Action>
+              <Action href="/contact" variant="solid">Get in touch</Action>
               {v.externalSite && (
                 <a
                   href={v.externalSite.href}
@@ -247,7 +247,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                     {v.cta ?? v.tagline}
                   </p>
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className="group inline-flex shrink-0 items-center gap-3.5 rounded-full bg-navy px-8 py-4 text-sm font-light text-ivory transition-colors duration-500 hover:bg-navy/90"
                   >
                     Send an enquiry

@@ -30,6 +30,12 @@ const STATEMENTS = [
    )`,
   `create index if not exists enquiries_created_at_idx on enquiries (created_at desc)`,
 
+  // Which vertical the enquiry is about. Nullable, so rows captured before the
+  // dropdown existed stay valid. Stores the slug from verticals.ts (or
+  // 'general'), which is stable if a company is ever renamed.
+  `alter table enquiries add column if not exists vertical text`,
+  `create index if not exists enquiries_vertical_idx on enquiries (vertical)`,
+
   // Newsletter field in the footer.
   `create table if not exists newsletter_subscribers (
      id         bigserial   primary key,

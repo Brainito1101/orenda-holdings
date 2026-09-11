@@ -7,7 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { Action, Container, Label, Section, SECTION_Y, SectionHead, STRIP_Y } from "@/components/ui";
 import { InquiryForm } from "@/components/InquiryForm";
 import { bySlug } from "@/data/verticals";
-import { CONTACT, ECOSYSTEM, PROCESS, STATS, TAGLINE } from "@/data/site";
+import { CONTACT, ECOSYSTEM, PRIMARY_EMAIL, PROCESS, STATS, TAGLINE } from "@/data/site";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 
@@ -97,7 +97,7 @@ export default function Home() {
               </p>
 
               <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:flex sm:gap-x-8 sm:gap-y-5">
-                <Action href="#contact" variant="solid" className="w-full justify-center px-2 sm:w-auto sm:px-8">Contact Us</Action>
+                <Action href="/contact" variant="solid" className="w-full justify-center px-2 sm:w-auto sm:px-8">Contact Us</Action>
                 <Action href="/about" variant="outline" className="w-full justify-center px-2 sm:w-auto sm:px-8">About Orenda</Action>
               </div>
             </div>
@@ -264,8 +264,8 @@ export default function Home() {
               <div className="mt-12 flex flex-col gap-8">
                 <Reveal delay={60}>
                   <Label>Email</Label>
-                  <a href={`mailto:${CONTACT.email}`} className="mt-1.5 inline-block py-1.5 text-[1.2rem] text-navy transition-colors hover:text-gold">
-                    {CONTACT.email}
+                  <a href={`mailto:${PRIMARY_EMAIL}`} className="mt-1.5 inline-block py-1.5 text-[1.2rem] text-navy transition-colors hover:text-gold">
+                    {PRIMARY_EMAIL}
                   </a>
                 </Reveal>
                 <Reveal delay={120}>
@@ -273,12 +273,15 @@ export default function Home() {
                   <p className="mt-3 text-[1.05rem] font-normal leading-relaxed text-navy">
                     {CONTACT.city}
                     <br />
-                    {CONTACT.officeLabel}
+                    Registered &amp; Corporate Office
                   </p>
                 </Reveal>
                 <Reveal delay={180}>
                   <Label>Hours</Label>
                   <p className="mt-3 text-[1.05rem] font-normal leading-relaxed text-navy">{CONTACT.hours}</p>
+                </Reveal>
+                <Reveal delay={240}>
+                  <Action href="/contact" variant="outline">Full contact details</Action>
                 </Reveal>
               </div>
             </div>
