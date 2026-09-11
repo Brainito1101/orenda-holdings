@@ -146,7 +146,23 @@
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+  /* The rule above would run the marquee to completion in .01ms, parking it at
+     -50%. Stopping it outright leaves the first copy in place instead. Needs
+     !important and a class selector to outrank the universal rule. */
+  .marquee-track { animation: none !important; }
 }
+
+/* ---------- client logo marquee ---------- */
+/* The track holds two identical copies of the list, so translating it by half
+   its width lands exactly where it started and the loop is seamless. */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee-scroll 48s linear infinite; }
+/* Let people stop the strip to read a logo, and give pointer users a way
+   to halt motion that starts on its own. */
+.marquee-wrap:hover .marquee-track { animation-play-state: paused; }
 
 /* ---------- ambient mark ---------- */
 @keyframes orbit-turn {

@@ -43,13 +43,15 @@ export default function LeadershipPage() {
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.slug} delay={i * 120}>
               <figure className="group flex flex-col gap-7">
+                {/* Capped rather than full-column: at two-up the column is
+                    ~570px wide, which made the portraits dominate the page. */}
                 <div className="overflow-hidden">
                   <Portrait
                     name={f.name}
                     photo={f.photo}
                     rounded="rounded-md"
-                    className="aspect-[4/5] w-full"
-                    sizes="(max-width: 768px) 100vw, 480px"
+                    className="aspect-[4/5] w-full max-w-[240px] sm:max-w-[260px] lg:max-w-[300px] 2xl:max-w-[340px]"
+                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 260px, (max-width: 1536px) 300px, 340px"
                   />
                 </div>
                 <figcaption>
