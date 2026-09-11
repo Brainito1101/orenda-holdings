@@ -1,7 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { submitEnquiry, type FormState } from "@/app/actions";
+import { ENQUIRY_VERTICALS } from "@/data/verticals";
+import { Select } from "@/components/Select";
 
 const FIELD =
   "w-full border-b border-black/15 bg-transparent py-3.5 text-[1rem] text-navy placeholder-faint outline-none transition-colors focus:border-navy";
@@ -10,6 +12,22 @@ const INITIAL: FormState = null;
 
 export function InquiryForm() {
   const [state, action, pending] = useActionState(submitEnquiry, INITIAL);
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  /**
+   * The custom Select carries its value in a hidden input, which the browser
+   * excludes from constraint validation - so `required` cannot cover it. Guard
+   * here instead of letting an empty choice make a pointless round trip. The
+   * action re-checks it server-side regardless.
+   */
+  function handle(formData: FormData) {
+    if (!formData.get("vertical")) {
+      setLocalError("Please choose which vertical this is about.");
+      return;
+    }
+    setLocalError(null);
+    action(formData);
+  }
 
   if (state?.ok) {
     return (
@@ -23,7 +41,7 @@ export function InquiryForm() {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-7">
+    <form action={handle} className="flex flex-col gap-7">
       <div>
         <label htmlFor="enquiry-name" className="sr-only">
           Full name
@@ -56,6 +74,13 @@ export function InquiryForm() {
         />
       </div>
 
+      <Select
+        name="vertical"
+        options={ENQUIRY_VERTICALS}
+        placeholder="Which vertical is this about?"
+        invalid={Boolean(localError)}
+      />
+
       <div>
         <label htmlFor="enquiry-message" className="sr-only">
           Tell us what you&rsquo;re looking to build
@@ -71,9 +96,9 @@ export function InquiryForm() {
         />
       </div>
 
-      {state && !state.ok && (
+      {(localError || (state && !state.ok)) && (
         <p role="alert" className="text-[0.95rem] font-normal leading-relaxed text-[#c0392b]">
-          {state.error}
+          {localError ?? (state && !state.ok ? state.error : null)}
         </p>
       )}
 
