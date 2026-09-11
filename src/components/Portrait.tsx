@@ -41,7 +41,7 @@ export function Portrait({
           alt={name}
           fill
           sizes={sizes}
-          className="object-cover object-top grayscale transition-all duration-[1400ms] group-hover:grayscale-0"
+          className="object-cover object-top"
           onError={() => setFailed(true)}
         />
       ) : (

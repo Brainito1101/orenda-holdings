@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AmbientMark } from "@/components/AmbientMark";
+import { ClientMarquee } from "@/components/ClientMarquee";
 import { CountUp } from "@/components/CountUp";
 import { Orbit2 } from "@/components/Orbit2";
 import { Reveal } from "@/components/Reveal";
@@ -127,7 +128,19 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ═══════════ 3. 01 / ABOUT ═══════════ */}
+      {/* ═══════════ 3. CLIENTS ═══════════ */}
+      <section className={`border-t border-black/10 bg-white ${STRIP_Y}`}>
+        <Container>
+          <Reveal>
+            <p className="label text-center text-faint">Trusted by</p>
+          </Reveal>
+        </Container>
+        <Reveal delay={80} className="mt-8 md:mt-10">
+          <ClientMarquee />
+        </Reveal>
+      </section>
+
+      {/* ═══════════ 4. 01 / ABOUT ═══════════ */}
       <Section className="border-t border-black/10">
         <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
           <div className="lg:col-span-5">
@@ -162,7 +175,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ═══════════ 4. 02 / WHAT WE BUILD ═══════════ */}
+      {/* ═══════════ 5. 02 / WHAT WE BUILD ═══════════ */}
       <section className={`border-t border-black/10 bg-white ${SECTION_Y}`}>
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-10">
@@ -185,7 +198,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ═══════════ 5. 03 / HOW WE WORK ═══════════ */}
+      {/* ═══════════ 6. 03 / HOW WE WORK ═══════════ */}
       <Section className="border-t border-black/10">
         <SectionHead
           label="03 / How we work"
@@ -211,7 +224,7 @@ export default function Home() {
         </dl>
       </Section>
 
-      {/* ═══════════ 6. 04 / ECOSYSTEM ═══════════ */}
+      {/* ═══════════ 7. 04 / ECOSYSTEM ═══════════ */}
       <section id="group" className={`border-t border-black/10 bg-white ${SECTION_Y}`}>
         <Container>
           <SectionHead
@@ -249,7 +262,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ═══════════ 7. 05 / CONTACT ═══════════ */}
+      {/* ═══════════ 8. 05 / CONTACT ═══════════ */}
       <section id="contact" className="relative overflow-hidden border-t border-black/10 bg-white">
         <AmbientMark size={480} className="pointer-events-none absolute -right-[8%] top-1/2 -translate-y-1/2 opacity-[0.04]" />
         <Container className={`relative ${SECTION_Y}`}>
