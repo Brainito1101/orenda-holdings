@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AmbientMark } from "@/components/AmbientMark";
 import { InquiryForm } from "@/components/InquiryForm";
 import { Reveal } from "@/components/Reveal";
-import { Container, HERO_Y, Label, Section } from "@/components/ui";
+import { Container, HERO_MIN_H, HERO_Y, Label, Section } from "@/components/ui";
 import { CONTACT } from "@/data/site";
 import { ENQUIRY_VERTICAL_VALUES } from "@/data/verticals";
 import { pageMetadata } from "@/lib/seo";
@@ -61,7 +61,7 @@ export default async function ContactPage(props: PageProps<"/contact">) {
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
       <header
-        className={`relative flex min-h-[45svh] items-center overflow-hidden bg-ivory md:min-h-[50svh] lg:min-h-[55svh] ${HERO_Y}`}
+        className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}
       >
         <AmbientMark
           size={520}

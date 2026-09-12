@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { Container, HERO_Y, Label, Section } from "@/components/ui";
+import { Container, HERO_MIN_H, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
 import { Reveal } from "@/components/Reveal";
@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata({
 export default function GroupPage() {
   return (
     <div className="flex flex-col">
-      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
+      <header className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#00AAC6"
@@ -41,6 +41,11 @@ export default function GroupPage() {
       </header>
 
       <Section tone="white" className="border-t border-black/10">
+        {/* Anchors the list. Without it the section rule and the list rule sat
+            96px apart with nothing between them, reading as a layout fault. */}
+        <Reveal className="mb-8 lg:mb-10">
+          <Label as="h2">The companies</Label>
+        </Reveal>
         <div className="border-t border-black/10">
           {VERTICALS.map((v, i) => (
             <Reveal key={v.slug} delay={i * 60}>

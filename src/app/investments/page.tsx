@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Container, HERO_Y, Label, SampleTag, Section } from "@/components/ui";
+import { Container, HERO_MIN_H, HERO_Y, Label, SampleTag, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { INVESTMENTS } from "@/data/investments";
@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
 export default function InvestmentsPage() {
   return (
     <div className="flex flex-col">
-      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
+      <header className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#DF5123"
@@ -39,6 +39,9 @@ export default function InvestmentsPage() {
       </header>
 
       <Section tone="white" className="border-t border-black/10">
+        <Reveal className="mb-8 lg:mb-10">
+          <Label as="h2">Portfolio</Label>
+        </Reveal>
         <div className="border-t border-black/10">
           {INVESTMENTS.map((inv, i) => (
             <Reveal key={`${inv.name}-${i}`} delay={i * 70}>

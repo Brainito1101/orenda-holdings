@@ -27,8 +27,8 @@ export function Orbit2() {
   const v = VERTICALS[active];
 
   return (
-    <div className="relative py-12 md:py-16 lg:py-24 2xl:py-28 3xl:py-32">
-      <div className="grid items-center gap-12 md:gap-16 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-20 xl:gap-28 2xl:grid-cols-[minmax(0,580px)_minmax(0,1fr)] 2xl:gap-32 3xl:grid-cols-[minmax(0,640px)_minmax(0,1fr)]">
+    <div className="relative py-8 md:py-10 lg:py-14 2xl:py-16 3xl:py-20">
+      <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-16 xl:gap-20 2xl:grid-cols-[minmax(0,580px)_minmax(0,1fr)] 2xl:gap-24 3xl:grid-cols-[minmax(0,640px)_minmax(0,1fr)]">
         {/* diagram */}
         <div className="flex justify-center">
           <div className={`relative aspect-square ${RING}`}>

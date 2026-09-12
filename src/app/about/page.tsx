@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Container, HERO_Y, Label, Section, SectionHead } from "@/components/ui";
+import { Action, BAND_Y, Container, HERO_MIN_H, HERO_Y, Label, Section, SectionHead } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Reveal } from "@/components/Reveal";
 import { BELIEFS, STORY, TAGLINE, WHO_WE_SERVE } from "@/data/site";
@@ -17,7 +17,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
-      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
+      <header className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#09767C"
@@ -39,13 +39,13 @@ export default function AboutPage() {
 
       {/* ═══════════ STORY ═══════════ */}
       <Section tone="white" className="border-t border-black/10">
-        <div className="grid gap-12 md:gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-24">
-          <div className="lg:col-span-4">
-            <Reveal>
-              <Label>The founding idea</Label>
-            </Reveal>
-          </div>
-          <div className="flex flex-col gap-7 lg:col-span-8">
+        {/* Label on its own line: in a 4/8 split it sat alone in a column and
+            left 40% of the row empty. */}
+        <Reveal>
+          <Label as="h2">The founding idea</Label>
+        </Reveal>
+        <div className="mt-7">
+          <div className="flex max-w-3xl flex-col gap-6">
             {STORY.map((p, i) => (
               <Reveal key={i} delay={i * 90}>
                 <p className="max-w-2xl text-[1.1rem] font-normal leading-relaxed text-muted">{p}</p>
@@ -59,7 +59,7 @@ export default function AboutPage() {
       <Section className="border-t border-black/10">
         <SectionHead label="What we believe" title="Principles, not slogans." />
 
-        <dl className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
+        <dl className="mt-8 border-t border-black/10 md:mt-10 lg:mt-12">
           {BELIEFS.map((b, i) => (
             <Reveal key={b.k} delay={i * 80}>
               <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
@@ -98,6 +98,28 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+
+      {/* ═══════════ ONWARD ═══════════ */}
+      {/* /about was a dead end - no in-content links out at all, so it passed no
+          authority on to /group or /leadership. */}
+      <section className={`bg-ivory border-t border-black/10 ${BAND_Y}`}>
+        <Container>
+          <Reveal>
+            <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+              <div>
+                <Label as="h2">Go deeper</Label>
+                <p className="mt-5 max-w-xl text-[1.3rem] leading-snug text-navy sm:text-[1.5rem]">
+                  Eight companies under one group, led by the people who built it.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-4">
+                <Action href="/group" variant="solid">Explore the Group</Action>
+                <Action href="/leadership">Meet the founders</Action>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
     </div>
   );
 }

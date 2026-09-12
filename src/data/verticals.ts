@@ -49,6 +49,13 @@ export type Vertical = {
   promise: string;
   /** Short paragraph used in the orbit / home summary. */
   body: string;
+  /**
+   * A short hero paragraph. Where it is set, the hero shows this and the fuller
+   * `description`/`descriptionMore` move into an Overview section below — some
+   * heroes were carrying 400-690 characters of body copy, which buried the
+   * headline and the call to action.
+   */
+  heroLede?: string;
   /** Fuller intro paragraph(s) for the detail page. Falls back to `body`. */
   description?: string;
   /** A second intro paragraph, rendered under `description`. */
@@ -159,6 +166,8 @@ export const VERTICALS: Vertical[] = [
     tagline: "We help individuals and businesses secure the right loan, from the right lender, at the best possible terms.",
     promise: "Borrow with confidence.",
     body: "Loan advisory across 50+ banks and NBFCs - the right lender, the right terms, every time.",
+    heroLede:
+      "Loan advisory across 50+ banks and NBFCs, structured and negotiated on your behalf.",
     description:
       "Founded in 2017, Orenda Financial Services is a loan advisory firm built on a simple observation: most borrowers accept the first offer they get, simply because no one ever showed them what else was out there. Our technology compares your profile against 50+ banks and NBFCs to find lenders that genuinely suit you, and our team structures and negotiates the deal on your behalf, from checking eligibility to disbursement.",
     whatWeDoLabel: "What we offer",
@@ -247,6 +256,8 @@ export const VERTICALS: Vertical[] = [
     tagline: "Creating Landmark Developments with Purpose, Precision, and Trust.",
     promise: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
     body: "Landmark residential, commercial, and plotting developments across Ahmedabad, built on precision and trust.",
+    heroLede:
+      "Landmark residential, commercial, and plotting developments across Ahmedabad.",
     description:
       "An Ahmedabad-based real estate development company creating residential, commercial, and plotting developments across strategically selected locations, combining market intelligence, meticulous planning, premium quality, and flawless execution. Every project is designed with modern architecture, premium amenities, advanced technologies, and environmentally responsible construction practices. Beyond development, we provide strategic real estate investment guidance to help clients build long-term wealth through future-ready assets.",
     subline: "Strategic Land Investments that reflect innovation, quality, and trust.",
@@ -287,6 +298,8 @@ export const VERTICALS: Vertical[] = [
     tagline: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
     promise: "Strategic legal counsel for complex matters.",
     body: "Strategic dispute resolution and advisory before the Supreme Court, High Courts, and statutory tribunals.",
+    heroLede:
+      "Litigation and advisory across civil, criminal, and commercial matters.",
     description:
       "A premier legal practice dedicated to delivering strategic, results-oriented dispute resolution and comprehensive advisory services across diverse sectors. Our vertical specialises in complex civil, criminal, and commercial litigation, representing clients before the Supreme Court of India, various High Courts, and specialised statutory tribunals with robust legal representation, meticulous drafting, and strategic advisory to safeguard client interests.",
     whatWeDoLabel: "What we offer",
@@ -378,6 +391,8 @@ export const VERTICALS: Vertical[] = [
     tagline: "Reviving Culture. Reimagining Heritage. Reconnecting Roots.",
     promise: "Cultural value, alongside financial and digital.",
     body: "The culture and heritage vertical - theatre, live shows, exhibitions and heritage preservation that reconnect communities with their roots.",
+    heroLede:
+      "The culture and heritage vertical of Orenda Group.",
     description:
       "Orenda Creatives is the culture and heritage vertical of Orenda Group, dedicated to reviving, preserving, and celebrating cultural values through immersive experiences. We bring together theatre, live shows, exhibitions, and heritage preservation initiatives that reconnect communities with their roots while creating meaningful, memorable experiences for modern audiences.",
     descriptionMore:
@@ -446,6 +461,8 @@ export const VERTICALS: Vertical[] = [
     tagline: "A premium holiday home rental vertical of Orenda Group.",
     promise: "Premium stays, professionally managed.",
     body: "Premium, professionally managed holiday accommodation for travellers seeking a comfortable, memorable stay.",
+    heroLede:
+      "Premium, professionally managed holiday accommodation for families, groups and corporate travellers.",
     description:
       "Orenda Holiday Homes is a dedicated hospitality and short-term rental vertical of Orenda Group, established to bring premium, professionally managed holiday accommodation to discerning travellers. Built on the same foundation of trust, precision, and service excellence that defines the Orenda name, Orenda Holiday Homes curates and manages high-end properties designed to deliver a comfortable, memorable stay for every guest.",
     descriptionMore:
