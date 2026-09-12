@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Action, BAND_Y, Container, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
+import { Portrait } from "@/components/Portrait";
 import { Reveal } from "@/components/Reveal";
 import { pageMetadata } from "@/lib/seo";
 import { bySlug, VERTICALS } from "@/data/verticals";
@@ -72,8 +73,14 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               {v.description ?? v.body}
             </p>
 
+            {v.descriptionMore && (
+              <p className="mt-5 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted">
+                {v.descriptionMore}
+              </p>
+            )}
+
             <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-8">
-              <Action href="/contact" variant="solid">Get in touch</Action>
+              <Action href={`/contact?vertical=${v.slug}`} variant="solid">Get in touch</Action>
               {v.externalSite && (
                 <a
                   href={v.externalSite.href}
@@ -115,14 +122,51 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
         </Section>
       ) : (
         <>
+          {/* ═══════════ VISION ═══════════ */}
+          {v.vision && (
+            <Section tone="white" className="border-t border-black/10">
+              <Reveal>
+                <div className="mx-auto max-w-4xl text-center">
+                  <Label>Vision</Label>
+                  <blockquote className="mt-7">
+                    <p className="text-[1.3rem] font-normal italic leading-snug text-navy sm:text-[1.6rem] lg:text-[1.85rem]">
+                      &ldquo;{v.vision}&rdquo;
+                    </p>
+                  </blockquote>
+                  <span
+                    aria-hidden
+                    className="mx-auto mt-9 block h-px w-16"
+                    style={{ backgroundColor: v.accent }}
+                  />
+                </div>
+              </Reveal>
+            </Section>
+          )}
+
           {/* ═══════════ WHAT WE DO ═══════════ */}
-          {(v.whatWeDo || v.whatWeDoGrouped) && (
+          {(v.whatWeDo || v.whatWeDoGrouped || v.whatWeDoDetailed) && (
             <Section tone="white" className="border-t border-black/10">
               <Reveal>
                 <Label>{v.whatWeDoLabel ?? "What we do"}</Label>
               </Reveal>
 
-              {v.whatWeDoGrouped ? (
+              {v.whatWeDoDetailed ? (
+                /* Offerings that carry a description: a titled card each, so
+                   the body copy has somewhere to live. */
+                <div className="mt-10 grid gap-5 sm:grid-cols-2">
+                  {v.whatWeDoDetailed.map((o, i) => (
+                    <Reveal key={o.title} delay={i * 70}>
+                      <div
+                        className="flex h-full flex-col gap-3 rounded-xl border p-6 sm:p-7"
+                        style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0a` }}
+                      >
+                        <h3 className="text-[1.15rem] font-semibold leading-tight text-navy">{o.title}</h3>
+                        <p className="text-[0.98rem] font-normal leading-relaxed text-muted">{o.body}</p>
+                      </div>
+                    </Reveal>
+                  ))}
+                </div>
+              ) : v.whatWeDoGrouped ? (
                 <div className="mt-10 grid gap-10 sm:grid-cols-2 md:gap-14 lg:grid-cols-3">
                   {v.whatWeDoGrouped.map((g, gi) => (
                     <Reveal key={g.title} delay={gi * 100}>
@@ -153,6 +197,32 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
             </Section>
           )}
 
+          {/* ═══════════ SPOTLIGHT ═══════════ */}
+          {v.spotlight && (
+            <Section className="border-t border-black/10">
+              <Reveal>
+                <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
+                  <div className="lg:col-span-4">
+                    <Label>{v.spotlight.label}</Label>
+                  </div>
+                  <div className="lg:col-span-8">
+                    <div
+                      className="rounded-xl border px-6 py-7 sm:px-9 sm:py-9"
+                      style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0a` }}
+                    >
+                      <h3 className="text-[1.35rem] leading-tight text-navy sm:text-[1.6rem]">
+                        {v.spotlight.title}
+                      </h3>
+                      <p className="mt-4 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted">
+                        {v.spotlight.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </Section>
+          )}
+
           {/* ═══════════ WHO IT'S FOR ═══════════ */}
           {v.whoItsFor && (
             <Section className="border-t border-black/10">
@@ -163,12 +233,20 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                   </Reveal>
                 </div>
                 <div className="lg:col-span-8">
-                  <ul className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
+                  {/* Numbered tiles rather than a bare bullet list: the entries
+                      are short phrases, so they read better as discrete cards,
+                      and the accent ties the block to this vertical. */}
+                  <ul className="grid gap-4 sm:grid-cols-2">
                     {v.whoItsFor.map((w, i) => (
-                      <Reveal key={w} delay={i * 50}>
-                        <li className="flex items-start gap-3 text-[1.02rem] font-normal leading-relaxed text-navy">
-                          <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: v.accent }} />
-                          {w}
+                      <Reveal key={w} delay={i * 60}>
+                        <li
+                          className="flex h-full items-start gap-4 rounded-xl border p-6 transition-colors duration-500 sm:p-7"
+                          style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0a` }}
+                        >
+                          <span className="label shrink-0 pt-1 tabular-nums" style={{ color: v.accent }}>
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-[1.02rem] font-normal leading-snug text-navy">{w}</span>
                         </li>
                       </Reveal>
                     ))}
@@ -188,24 +266,32 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                   </Reveal>
                 </div>
                 <div className="lg:col-span-8">
-                  {v.differenceList ? (
-                    <ul className="flex flex-col gap-6">
-                      {v.differenceList.map((d, i) => (
-                        <Reveal key={d} delay={i * 80}>
-                          <li className="flex items-start gap-4 text-[1.05rem] font-normal leading-relaxed text-muted">
-                            <span className="label shrink-0 tabular-nums" style={{ color: v.accent }}>{String(i + 1).padStart(2, "0")}</span>
-                            {d}
-                          </li>
-                        </Reveal>
-                      ))}
-                    </ul>
-                  ) : (
-                    <Reveal>
-                      <p className="max-w-2xl text-[1.1rem] font-normal leading-relaxed text-muted">
-                        {v.difference}
-                      </p>
-                    </Reveal>
-                  )}
+                  {/* Set in a panel with an accent rule rather than left as a
+                      loose grey paragraph — it is the page's argument, so it
+                      should carry more weight than the body copy around it. */}
+                  <Reveal>
+                    <div
+                      className="rounded-xl border-l-2 px-6 py-7 sm:px-9 sm:py-9"
+                      style={{ borderColor: v.accent, backgroundColor: `${v.accent}0a` }}
+                    >
+                      {v.differenceList ? (
+                        <ul className="flex flex-col gap-6">
+                          {v.differenceList.map((d, i) => (
+                            <li key={d} className="flex items-start gap-4 text-[1.05rem] font-normal leading-relaxed text-navy">
+                              <span className="label shrink-0 pt-1 tabular-nums" style={{ color: v.accent }}>
+                                {String(i + 1).padStart(2, "0")}
+                              </span>
+                              {d}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="max-w-3xl text-[1.1rem] font-normal leading-relaxed text-navy sm:text-[1.2rem]">
+                          {v.difference}
+                        </p>
+                      )}
+                    </div>
+                  </Reveal>
                 </div>
               </div>
             </Section>
@@ -217,9 +303,19 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               <Reveal>
                 <Label>Leadership</Label>
               </Reveal>
-              <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
                 {v.leadership.map((l, i) => (
                   <Reveal key={l.name} delay={i * 80}>
+                    {/* Only rendered where a photo exists — see Leader.photo. */}
+                    {l.photo && (
+                      <Portrait
+                        name={l.name}
+                        photo={l.photo}
+                        rounded="rounded-md"
+                        className="mb-5 aspect-[4/5] w-full max-w-[200px] lg:max-w-[220px]"
+                        sizes="(max-width: 1024px) 200px, 220px"
+                      />
+                    )}
                     <h3 className="text-[1.2rem] font-semibold leading-tight text-navy">{l.name}</h3>
                     <p className="label mt-2 text-faint">{l.role}</p>
                     {l.credentials && (
@@ -242,17 +338,21 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           <section className={`border-t border-black/10 bg-white ${BAND_Y}`}>
             <Container>
               <Reveal>
-                <div className="flex flex-col items-start gap-8 border-t border-black/10 pt-16 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="max-w-xl text-[1.4rem] leading-tight text-navy sm:text-[1.7rem]">
-                    {v.cta ?? v.tagline}
-                  </p>
-                  <Link
-                    href="/contact"
-                    className="group inline-flex shrink-0 items-center gap-3.5 rounded-full bg-navy px-8 py-4 text-sm font-light text-ivory transition-colors duration-500 hover:bg-navy/90"
-                  >
-                    Send an enquiry
-                    <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1.5">&rarr;</span>
-                  </Link>
+                {/* A contained panel rather than a hairline and a floating
+                    button, so the page closes on something deliberate. */}
+                <div
+                  className="rounded-2xl border px-6 py-9 sm:px-10 sm:py-11 lg:px-12"
+                  style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0d` }}
+                >
+                  <Label>Enquiry</Label>
+                  <div className="mt-6 flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+                    <p className="max-w-xl text-[1.3rem] leading-snug text-navy sm:text-[1.55rem] lg:text-[1.7rem]">
+                      {v.cta ?? v.tagline}
+                    </p>
+                    <div className="shrink-0">
+                      <Action href={`/contact?vertical=${v.slug}`} variant="solid">Send an enquiry</Action>
+                    </div>
+                  </div>
                 </div>
               </Reveal>
             </Container>

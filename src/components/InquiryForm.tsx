@@ -10,9 +10,10 @@ const FIELD =
 
 const INITIAL: FormState = null;
 
-export function InquiryForm() {
+export function InquiryForm({ defaultVertical = "" }: { defaultVertical?: string }) {
   const [state, action, pending] = useActionState(submitEnquiry, INITIAL);
   const [localError, setLocalError] = useState<string | null>(null);
+  const [vertical, setVertical] = useState(defaultVertical);
 
   /**
    * The custom Select carries its value in a hidden input, which the browser
@@ -78,6 +79,8 @@ export function InquiryForm() {
         name="vertical"
         options={ENQUIRY_VERTICALS}
         placeholder="Which vertical is this about?"
+        value={vertical}
+        onChange={setVertical}
         invalid={Boolean(localError)}
       />
 
