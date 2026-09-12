@@ -26,17 +26,21 @@ export function Select({
   name,
   options,
   placeholder,
+  value,
+  onChange,
   invalid = false,
   className = "",
 }: {
   name: string;
   options: SelectOption[];
   placeholder: string;
+  /** Controlled by the parent so it can be seeded from the URL. */
+  value: string;
+  onChange: (value: string) => void;
   invalid?: boolean;
   className?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
   const [active, setActive] = useState(0);
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -81,7 +85,7 @@ export function Select({
   function choose(index: number) {
     const option = options[index];
     if (!option) return;
-    setValue(option.value);
+    onChange(option.value);
     setActive(index);
     setOpen(false);
     triggerRef.current?.focus();

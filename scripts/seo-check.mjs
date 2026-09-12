@@ -5,7 +5,13 @@
  * within the length Google renders, keywords, a self-referencing canonical,
  * and a robots directive that matches whether the route is meant to be indexed.
  *
- * Run after a build:  node scripts/seo-check.mjs
+ * Run after a build:  npm run seo:check
+ *
+ * Statically prerendered routes are read straight from .next/server/app.
+ * Dynamically rendered routes (/contact reads ?vertical=) have no prerendered
+ * file, so they are fetched over HTTP instead — start `npm start` first, or
+ * point SEO_CHECK_URL at a running instance. If the server is not up, those
+ * routes are reported as skipped rather than passing silently.
  */
 import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -15,12 +21,19 @@ const DESC_MIN = 70;
 const DESC_MAX = 160;
 const ORIGIN = "https://orendagroup.in";
 
-// route -> [prerendered html file, should be indexable]
+/**
+ * Must be given explicitly. Guessing localhost:3000 is dangerous — another
+ * project's dev server may be sitting on it, and the check then silently
+ * validates the wrong application.
+ */
+const LOCAL = process.env.SEO_CHECK_URL;
+
+// route -> [prerendered html file, should be indexable, dynamic?]
 const ROUTES = [
   ["/", "index.html", true],
   ["/about", "about.html", true],
   ["/group", "group.html", true],
-  ["/contact", "contact.html", true],
+  ["/contact", "contact.html", true, true], // dynamic: reads ?vertical=
   ["/leadership", "leadership.html", true],
   ["/group/advisors", "group/advisors.html", true],
   ["/group/financial-services", "group/financial-services.html", true],
@@ -50,16 +63,37 @@ const meta = (html, name) => {
 
 let failures = 0;
 let checked = 0;
+let skipped = 0;
 const rows = [];
 
-for (const [route, file, indexable] of ROUTES) {
+for (const [route, file, indexable, dynamic] of ROUTES) {
   const path = `.next/server/app/${file}`;
-  if (!existsSync(path)) {
+  let html;
+  if (dynamic) {
+    // No prerendered file exists for a dynamic route; ask a running server.
+    if (!LOCAL) {
+      console.warn(
+        `SKIP     ${route}  (dynamic route - set SEO_CHECK_URL to a running instance to check it)`
+      );
+      skipped++;
+      continue;
+    }
+    try {
+      const res = await fetch(`${LOCAL}${route}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      html = await res.text();
+    } catch (err) {
+      console.error(`FAIL     ${route}  could not fetch ${LOCAL}${route}: ${err.message}`);
+      failures++;
+      continue;
+    }
+  } else if (!existsSync(path)) {
     console.error(`MISSING  ${route}  (${path} not found - run \`npm run build\` first)`);
     failures++;
     continue;
+  } else {
+    html = await readFile(path, "utf8");
   }
-  const html = await readFile(path, "utf8");
   const fail = (msg) => {
     console.error(`FAIL  ${route}  ${msg}`);
     failures++;
@@ -111,7 +145,9 @@ for (const r of rows) {
   console.log(`${pad(r.route, 30)}${pad(r.title, 7)}${pad(r.desc, 6)}${pad(r.kw, 4)}${r.robots}`);
 }
 console.log(
-  `\n${checked}/${ROUTES.length} routes checked - ` +
+  `\n${checked}/${ROUTES.length} routes checked` +
+    (skipped ? `, ${skipped} skipped` : "") +
+    " - " +
     (failures === 0 ? "all SEO tags valid" : `${failures} problem(s)`)
 );
 

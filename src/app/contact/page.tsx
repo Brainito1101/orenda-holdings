@@ -4,6 +4,7 @@ import { InquiryForm } from "@/components/InquiryForm";
 import { Reveal } from "@/components/Reveal";
 import { Container, HERO_Y, Label, Section } from "@/components/ui";
 import { CONTACT } from "@/data/site";
+import { ENQUIRY_VERTICAL_VALUES } from "@/data/verticals";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -39,7 +40,23 @@ function Detail({
   );
 }
 
-export default function ContactPage() {
+/**
+ * Reads `?vertical=` so arriving from a company page pre-selects that company
+ * in the form — nobody should have to re-pick what they just clicked from.
+ *
+ * Taking it from searchParams on the server rather than with useSearchParams
+ * on the client is deliberate: the hook would pull the form out of the
+ * prerender, and seeding React state from it in an effect both trips
+ * react-hooks/set-state-in-effect and causes a hydration mismatch. This way
+ * the value is already in the HTML on first paint. The trade-off is that this
+ * one route is server-rendered per request rather than static.
+ */
+export default async function ContactPage(props: PageProps<"/contact">) {
+  const { vertical } = await props.searchParams;
+  // Arrives from the URL, so it is untrusted; the action re-checks it too.
+  const preselected =
+    typeof vertical === "string" && ENQUIRY_VERTICAL_VALUES.includes(vertical) ? vertical : "";
+
   return (
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
@@ -126,7 +143,7 @@ export default function ContactPage() {
                   Tell us a little about what you need and the right team will come back to you.
                 </p>
                 <div className="mt-9">
-                  <InquiryForm />
+                  <InquiryForm defaultVertical={preselected} />
                 </div>
               </div>
             </Reveal>
