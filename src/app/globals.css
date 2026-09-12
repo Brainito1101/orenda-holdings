@@ -23,8 +23,11 @@
   --color-navy: #050b5b;
   --color-navy-deep: #04072f;
 
-  /* Single metallic accent */
-  --color-gold: #a8791f;
+  /* Single metallic accent.
+     Darkened from #a8791f, which measured 3.87:1 on white and so failed
+     WCAG AA for normal-size text - the micro-labels set in it were genuinely
+     hard to read. #8f6718 measures 5.1:1. */
+  --color-gold: #8f6718;
 
   /* Warm paper neutrals */
   --color-ink: #1a1d2e;
@@ -103,12 +106,18 @@
 }
 
 /* ---------- micro label ---------- */
-/* font-family is not set here: the global Manrope rule below overrides it. */
+/* font-family is not set here: the global Manrope rule below overrides it.
+   Was 0.66rem (10.56px) at 0.26em tracking, which read as decoration rather
+   than as a heading. Bigger, heavier and less tracked so it actually
+   registers as a section label. */
 .label {
-  font-size: 0.66rem;
-  font-weight: 400;
-  letter-spacing: 0.26em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+@media (min-width: 1024px) {
+  .label { font-size: 0.82rem; }
 }
 
 /* ---------- hairline ---------- */

@@ -97,7 +97,7 @@ export default function Home() {
                 capital markets, and legal expertise together - all solutions under one roof.
               </p>
 
-              <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:flex sm:gap-x-8 sm:gap-y-5">
+              <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:flex sm:gap-x-8 sm:gap-y-5">
                 <Action href="/contact" variant="solid" className="w-full justify-center px-2 sm:w-auto sm:px-8">Contact Us</Action>
                 <Action href="/about" variant="outline" className="w-full justify-center px-2 sm:w-auto sm:px-8">About Orenda</Action>
               </div>
@@ -132,7 +132,7 @@ export default function Home() {
       <section className={`border-t border-black/10 bg-white ${STRIP_Y}`}>
         <Container>
           <Reveal>
-            <p className="label text-center text-faint">Trusted by</p>
+            <h2 className="label text-center text-faint">Trusted by</h2>
           </Reveal>
         </Container>
         <Reveal delay={80} className="mt-8 md:mt-10">
@@ -168,8 +168,11 @@ export default function Home() {
                 and taking responsibility for outcomes, not just advice.
               </p>
             </Reveal>
-            <Reveal delay={240} className="mt-3">
+            <Reveal delay={240} className="mt-3 flex flex-wrap gap-4">
               <Action href="/about" variant="outline">Read about the Group</Action>
+              {/* /leadership had no in-content inbound link anywhere on the site,
+                  only the header and footer nav. */}
+              <Action href="/leadership" variant="outline">Meet the founders</Action>
             </Reveal>
           </div>
         </div>
@@ -205,7 +208,7 @@ export default function Home() {
           title="Discipline before complexity."
         />
 
-        <dl className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
+        <dl className="mt-8 border-t border-black/10 md:mt-10 lg:mt-12">
           {PROCESS.map((p, i) => (
             <Reveal key={p.k} delay={i * 70}>
               <div className="group grid gap-3 border-b border-black/10 py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
@@ -233,7 +236,7 @@ export default function Home() {
             lede="Each Orenda company has a clear role. Together, they cover the full journey from advice to asset."
           />
 
-          <div className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
+          <div className="mt-8 border-t border-black/10 md:mt-10 lg:mt-12">
             {ECOSYSTEM.map((e, i) => {
               const v = bySlug(e.slug);
               return (
@@ -274,7 +277,7 @@ export default function Home() {
                 lede="Whether you’re a promoter, an investor, or a business exploring the group - we’d like to hear from you."
               />
 
-              <div className="mt-12 flex flex-col gap-8">
+              <div className="mt-10 flex flex-col gap-7">
                 <Reveal delay={60}>
                   <Label>Email</Label>
                   <a href={`mailto:${PRIMARY_EMAIL}`} className="mt-1.5 inline-block py-1.5 text-[1.2rem] text-navy transition-colors hover:text-gold">

@@ -22,8 +22,23 @@ export function Container({ children, className = "" }: { children: ReactNode; c
   );
 }
 
-export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <span className={`label text-gold ${className}`}>{children}</span>;
+/**
+ * The small gold eyebrow. Most sections are titled by nothing else, so pass
+ * `as="h2"` where that is the case: rendered as a span the section titles were
+ * invisible to the document outline, and every vertical page jumped straight
+ * from its h1 to the h3s inside its sections. Stays a span for the hero eyebrow
+ * (it sits above the h1) and for inline metadata like a leader's role.
+ */
+export function Label({
+  children,
+  as: Tag = "span",
+  className = "",
+}: {
+  children: ReactNode;
+  as?: "span" | "h2" | "h3";
+  className?: string;
+}) {
+  return <Tag className={`label text-gold ${className}`}>{children}</Tag>;
 }
 
 /** Understated link-style action. Luxury does not shout. */
@@ -89,28 +104,45 @@ export function Section({
  * Vertical rhythm.
  *
  * Four tiers, each stepping through the same six breakpoints, so the spacing
- * between every band stays in proportion at every width instead of any one
- * band flattening out on large screens. Keep bands on these constants rather
- * than hand-writing padding, or the rhythm drifts apart again.
+ * between every band stays in proportion at every width. Keep bands on these
+ * constants rather than hand-writing padding, or the rhythm drifts apart.
+ *
+ * These were cut roughly 40%: SECTION was 160px top and bottom at lg, which
+ * put 320px of blank space between one section's content and the next. The
+ * page read as disconnected rather than spacious. 96px a side gives a 192px
+ * gap, which still breathes without losing the thread.
  *
  *                base   sm    md    lg    2xl   3xl
- *  SECTION        80    96   112   160   192   224
- *  BAND           56    64    80   112   128   144
- *  STRIP          48    48    56    64    80    96
+ *  SECTION        56    64    80    96   112   128
+ *  BAND           40    48    56    64    80    96
+ *  STRIP          40    40    48    56    64    80
  * ---------------------------------------------------------------------- */
 
 /** Major content band. */
-export const SECTION_Y = "py-20 sm:py-24 md:py-28 lg:py-40 2xl:py-48 3xl:py-56";
+export const SECTION_Y = "py-14 sm:py-16 md:py-20 lg:py-24 2xl:py-28 3xl:py-32";
 
 /** Secondary band: closing CTAs and the footer. */
-export const BAND_Y = "py-14 sm:py-16 md:py-20 lg:py-28 2xl:py-32 3xl:py-36";
+export const BAND_Y = "py-10 sm:py-12 md:py-14 lg:py-16 2xl:py-20 3xl:py-24";
 
-/** Compact strip: the stats bar. */
-export const STRIP_Y = "py-12 md:py-14 lg:py-16 2xl:py-20 3xl:py-24";
+/** Compact strip: the stats bar and the client logos. */
+export const STRIP_Y = "py-10 md:py-12 lg:py-14 2xl:py-16 3xl:py-20";
 
-/** Page hero. Top padding also clears the fixed header (88px, 100px at 2xl). */
+/**
+ * Minimum hero height for the inner pages. They all carried 75svh at lg, which
+ * reserved 675px for roughly 170px of content, so every one of them opened on a
+ * band of empty ivory. These are the values the contact hero already used, which
+ * was the one inner hero that read correctly. The home hero keeps 100svh on
+ * purpose; heroes with taller content (the vertical pages add two buttons) grow
+ * past the floor on their own.
+ */
+export const HERO_MIN_H = "min-h-[45svh] md:min-h-[50svh] lg:min-h-[55svh]";
+
+/**
+ * Page hero. Top padding also clears the fixed header (88px, 100px at 2xl),
+ * so it cannot be trimmed as far as the bottom.
+ */
 export const HERO_Y =
-  "pt-28 pb-14 sm:pb-16 md:pt-32 lg:pt-36 lg:pb-24 2xl:pt-44 2xl:pb-28 3xl:pt-48 3xl:pb-32";
+  "pt-28 pb-12 sm:pb-14 md:pt-32 md:pb-16 lg:pt-36 lg:pb-20 2xl:pt-44 2xl:pb-24 3xl:pt-48 3xl:pb-28";
 
 export function SectionHead({
   label,
@@ -124,10 +156,10 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <Reveal className={`flex max-w-3xl flex-col gap-7 ${className}`}>
+    <Reveal className={`flex max-w-3xl flex-col gap-5 ${className}`}>
       {label && <Label>{label}</Label>}
       {/* Steps up to the 34px desktop size instead of overshooting it at `sm`. */}
-      <h2 className="text-[1.9rem] leading-[1.14] sm:text-[2rem] md:text-[2.1rem] lg:text-[34px] lg:font-semibold lg:leading-[1.3] 2xl:text-[40px] 3xl:text-[44px]">
+      <h2 className="text-[1.9rem] leading-[1.14] sm:text-[2rem] md:text-[2.1rem] lg:text-[36px] lg:font-semibold lg:leading-[1.25] 2xl:text-[42px] 3xl:text-[46px]">
         {title}
       </h2>
       {lede && (

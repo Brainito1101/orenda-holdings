@@ -28,7 +28,7 @@ export function Footer() {
   return (
     <footer className="relative mt-auto overflow-hidden bg-navy-deep text-ivory">
       <div className="relative z-10 mx-auto w-full max-w-[1320px] px-5 sm:px-7 lg:px-12 2xl:max-w-[1560px] 2xl:px-16 3xl:max-w-[1760px] 3xl:px-20">
-        <div className="grid gap-12 py-14 sm:py-16 md:gap-14 md:py-20 lg:grid-cols-12 lg:gap-8 lg:py-28 2xl:py-32 3xl:py-36">
+        <div className="grid gap-10 py-12 sm:py-14 md:gap-12 md:py-16 lg:grid-cols-12 lg:gap-8 lg:py-20 2xl:py-24 3xl:py-28">
           
           {/* Column 1: Brand & Socials */}
           <div className="flex flex-col gap-7 lg:col-span-4">

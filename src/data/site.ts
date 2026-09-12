@@ -28,6 +28,8 @@ export const ECOSYSTEM = [
   { slug: "realtors", name: "Orenda Realtors", verb: "builds." },
   { slug: "legal", name: "Orenda Legal", verb: "protects." },
   { slug: "digital", name: "Orenda Digital", verb: "grows." },
+  { slug: "creative-holdings", name: "Orenda Creatives", verb: "revives." },
+  { slug: "star-holiday-homes", name: "Orenda Holiday Homes", verb: "hosts." },
 ];
 
 export const BELIEFS = [

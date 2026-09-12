@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Action, BAND_Y, Container, HERO_Y, Label, Section } from "@/components/ui";
+import { Action, BAND_Y, Container, HERO_MIN_H, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Starburst } from "@/components/Starburst";
 import { Portrait } from "@/components/Portrait";
@@ -37,7 +37,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
   return (
     <div className="flex flex-col">
       {/* ═══════════ HERO ═══════════ */}
-      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
+      <header className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke={v.accent}
@@ -69,17 +69,19 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               </p>
             )}
 
-            <p className="mt-8 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted">
-              {v.description ?? v.body}
+            {/* With a heroLede set, the long copy lives in the Overview
+                section below instead of crowding the headline and CTA. */}
+            <p className="mt-7 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted lg:text-[1.1rem]">
+              {v.heroLede ?? v.description ?? v.body}
             </p>
 
-            {v.descriptionMore && (
+            {!v.heroLede && v.descriptionMore && (
               <p className="mt-5 max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted">
                 {v.descriptionMore}
               </p>
             )}
 
-            <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-8">
+            <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-8">
               <Action href={`/contact?vertical=${v.slug}`} variant="solid">Get in touch</Action>
               {v.externalSite && (
                 <a
@@ -101,7 +103,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
         <Section tone="white" className="border-t border-black/10">
           <Reveal>
             <div className="max-w-2xl">
-              <Label>Full page coming soon</Label>
+              <Label as="h2">Full page coming soon</Label>
               <p className="mt-6 text-[1.05rem] font-normal leading-relaxed text-muted">
                 {v.name} is an active part of the Orenda ecosystem - the detailed page is on its
                 way. In the meantime, reach out directly and we&rsquo;ll connect you with the
@@ -109,7 +111,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
               </p>
               {v.whoItsFor && (
                 <div className="mt-10">
-                  <Label>Who it&rsquo;s for</Label>
+                  <Label as="h2">Who it&rsquo;s for</Label>
                   <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
                     {v.whoItsFor.map((w) => (
                       <li key={w} className="text-[1rem] font-normal text-navy">{w}</li>
@@ -122,12 +124,39 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
         </Section>
       ) : (
         <>
+          {/* ═══════════ OVERVIEW ═══════════ */}
+          {v.heroLede && (v.description || v.descriptionMore) && (
+            <Section tone="white" className="border-t border-black/10">
+              <Reveal>
+                <Label as="h2">Overview</Label>
+              </Reveal>
+              <div className="mt-7">
+                <div className="flex max-w-3xl flex-col gap-6">
+                  {v.description && (
+                    <Reveal>
+                      <p className="max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted lg:text-[1.1rem]">
+                        {v.description}
+                      </p>
+                    </Reveal>
+                  )}
+                  {v.descriptionMore && (
+                    <Reveal delay={80}>
+                      <p className="max-w-2xl text-[1.05rem] font-normal leading-relaxed text-muted lg:text-[1.1rem]">
+                        {v.descriptionMore}
+                      </p>
+                    </Reveal>
+                  )}
+                </div>
+              </div>
+            </Section>
+          )}
+
           {/* ═══════════ VISION ═══════════ */}
           {v.vision && (
             <Section tone="white" className="border-t border-black/10">
               <Reveal>
                 <div className="mx-auto max-w-4xl text-center">
-                  <Label>Vision</Label>
+                  <Label as="h2">Vision</Label>
                   <blockquote className="mt-7">
                     <p className="text-[1.3rem] font-normal italic leading-snug text-navy sm:text-[1.6rem] lg:text-[1.85rem]">
                       &ldquo;{v.vision}&rdquo;
@@ -147,13 +176,13 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {(v.whatWeDo || v.whatWeDoGrouped || v.whatWeDoDetailed) && (
             <Section tone="white" className="border-t border-black/10">
               <Reveal>
-                <Label>{v.whatWeDoLabel ?? "What we do"}</Label>
+                <Label as="h2">{v.whatWeDoLabel ?? "What we do"}</Label>
               </Reveal>
 
               {v.whatWeDoDetailed ? (
                 /* Offerings that carry a description: a titled card each, so
                    the body copy has somewhere to live. */
-                <div className="mt-10 grid gap-5 sm:grid-cols-2">
+                <div className="mt-8 grid gap-5 sm:grid-cols-2">
                   {v.whatWeDoDetailed.map((o, i) => (
                     <Reveal key={o.title} delay={i * 70}>
                       <div
@@ -167,7 +196,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                   ))}
                 </div>
               ) : v.whatWeDoGrouped ? (
-                <div className="mt-10 grid gap-10 sm:grid-cols-2 md:gap-14 lg:grid-cols-3">
+                <div className="mt-8 grid gap-10 sm:grid-cols-2 md:gap-14 lg:grid-cols-3">
                   {v.whatWeDoGrouped.map((g, gi) => (
                     <Reveal key={g.title} delay={gi * 100}>
                       <h3 className="text-[1.2rem] font-semibold leading-tight text-navy">{g.title}</h3>
@@ -183,7 +212,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                   ))}
                 </div>
               ) : (
-                <ul className="mt-10 grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="mt-8 grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
                   {v.whatWeDo!.map((item, i) => (
                     <Reveal key={item} delay={i * 40}>
                       <li className="flex items-start gap-3 text-[1rem] font-normal leading-relaxed text-navy">
@@ -201,11 +230,9 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {v.spotlight && (
             <Section className="border-t border-black/10">
               <Reveal>
-                <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
-                  <div className="lg:col-span-4">
-                    <Label>{v.spotlight.label}</Label>
-                  </div>
-                  <div className="lg:col-span-8">
+                <div>
+                  <Label as="h2">{v.spotlight.label}</Label>
+                  <div className="mt-7 max-w-4xl">
                     <div
                       className="rounded-xl border px-6 py-7 sm:px-9 sm:py-9"
                       style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0a` }}
@@ -226,17 +253,16 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {/* ═══════════ WHO IT'S FOR ═══════════ */}
           {v.whoItsFor && (
             <Section className="border-t border-black/10">
-              <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
-                <div className="lg:col-span-4">
-                  <Reveal>
-                    <Label>Who it&rsquo;s for</Label>
-                  </Reveal>
-                </div>
-                <div className="lg:col-span-8">
+              <Reveal>
+                <Label as="h2">Who it&rsquo;s for</Label>
+              </Reveal>
+              <div className="mt-7">
+                <div>
                   {/* Numbered tiles rather than a bare bullet list: the entries
                       are short phrases, so they read better as discrete cards,
-                      and the accent ties the block to this vertical. */}
-                  <ul className="grid gap-4 sm:grid-cols-2">
+                      and the accent ties the block to this vertical. Full width
+                      in three columns: a side label left 40% of the row empty. */}
+                  <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {v.whoItsFor.map((w, i) => (
                       <Reveal key={w} delay={i * 60}>
                         <li
@@ -259,13 +285,11 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {/* ═══════════ WHAT MAKES US DIFFERENT ═══════════ */}
           {(v.difference || v.differenceList) && (
             <Section tone="white" className="border-t border-black/10">
-              <div className="grid gap-10 md:gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-24">
-                <div className="lg:col-span-4">
-                  <Reveal>
-                    <Label>What makes us different</Label>
-                  </Reveal>
-                </div>
-                <div className="lg:col-span-8">
+              <Reveal>
+                <Label as="h2">What makes us different</Label>
+              </Reveal>
+              <div className="mt-7">
+                <div className="max-w-4xl">
                   {/* Set in a panel with an accent rule rather than left as a
                       loose grey paragraph — it is the page's argument, so it
                       should carry more weight than the body copy around it. */}
@@ -301,9 +325,9 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
           {v.leadership && (
             <Section className="border-t border-black/10">
               <Reveal>
-                <Label>Leadership</Label>
+                <Label as="h2">Leadership</Label>
               </Reveal>
-              <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
                 {v.leadership.map((l, i) => (
                   <Reveal key={l.name} delay={i * 80}>
                     {/* Only rendered where a photo exists — see Leader.photo. */}
@@ -344,7 +368,7 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
                   className="rounded-2xl border px-6 py-9 sm:px-10 sm:py-11 lg:px-12"
                   style={{ borderColor: `${v.accent}33`, backgroundColor: `${v.accent}0d` }}
                 >
-                  <Label>Enquiry</Label>
+                  <Label as="h2">Enquiry</Label>
                   <div className="mt-6 flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
                     <p className="max-w-xl text-[1.3rem] leading-snug text-navy sm:text-[1.55rem] lg:text-[1.7rem]">
                       {v.cta ?? v.tagline}
@@ -364,9 +388,9 @@ export default async function VerticalPage(props: PageProps<"/group/[slug]">) {
       {related.length > 0 && (
         <Section tone="white" className="border-t border-black/10">
           <Reveal>
-            <Label>Elsewhere in the Group</Label>
+            <Label as="h2">Elsewhere in the Group</Label>
           </Reveal>
-          <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r, i) => (
               <Reveal key={r.slug} delay={i * 80}>
                 <Link href={`/group/${r.slug}`} className="group flex flex-col gap-4">

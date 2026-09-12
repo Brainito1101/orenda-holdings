@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Container, HERO_Y, Label, Section } from "@/components/ui";
+import { Action, BAND_Y, Container, HERO_MIN_H, HERO_Y, Label, Section } from "@/components/ui";
 import { AmbientMark } from "@/components/AmbientMark";
 import { Portrait } from "@/components/Portrait";
 import { Reveal } from "@/components/Reveal";
@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
 export default function LeadershipPage() {
   return (
     <div className="flex flex-col">
-      <header className={`relative flex min-h-[60svh] items-center overflow-hidden bg-ivory md:min-h-[65svh] lg:min-h-[75svh] ${HERO_Y}`}>
+      <header className={`relative flex items-center overflow-hidden bg-ivory ${HERO_MIN_H} ${HERO_Y}`}>
         <AmbientMark
           size={520}
           stroke="#7248F2"
@@ -39,7 +39,13 @@ export default function LeadershipPage() {
       </header>
 
       <Section tone="white" className="border-t border-black/10">
-        <div className="grid gap-12 sm:grid-cols-2 sm:gap-10 md:gap-14 lg:gap-20">
+        <Reveal className="mb-10 lg:mb-12">
+          <Label as="h2">The founders</Label>
+        </Reveal>
+        {/* Capped at 5xl: the full 1224px container gave two 572px columns for
+            content that tops out at 448px, so the two founders drifted apart
+            with 350px of white between the portraits. */}
+        <div className="grid max-w-5xl gap-12 sm:grid-cols-2 sm:gap-10 md:gap-14 lg:gap-16">
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.slug} delay={i * 120}>
               <figure className="group flex flex-col gap-7">
@@ -55,7 +61,7 @@ export default function LeadershipPage() {
                   />
                 </div>
                 <figcaption>
-                  <h2 className="text-[1.8rem] leading-tight">{f.name}</h2>
+                  <h3 className="text-[1.8rem] leading-tight">{f.name}</h3>
                   <p className="label mt-3 text-faint">
                     {f.role}, {f.org}
                   </p>
@@ -73,6 +79,28 @@ export default function LeadershipPage() {
           ))}
         </div>
       </Section>
+
+      {/* ═══════════ ONWARD ═══════════ */}
+      {/* /leadership was fully isolated: no in-content links in or out, reachable
+          only through the header and footer nav. */}
+      <section className={`bg-ivory border-t border-black/10 ${BAND_Y}`}>
+        <Container>
+          <Reveal>
+            <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+              <div>
+                <Label as="h2">Next</Label>
+                <p className="mt-5 max-w-xl text-[1.3rem] leading-snug text-navy sm:text-[1.5rem]">
+                  See what the founders have built, or talk to the team directly.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-4">
+                <Action href="/group" variant="solid">Explore the Group</Action>
+                <Action href="/contact">Get in touch</Action>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
     </div>
   );
 }
